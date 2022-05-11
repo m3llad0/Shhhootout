@@ -1,0 +1,27 @@
+version: "3.9"
+service:
+  api:
+    build: 
+      context: ./api
+      dockerfile: Dockerfile
+    ports: "8000:8000"
+    volumes: 
+      - ./api:/home/node/app"
+      - ./api/node_modules:/home/node/app/node_modules
+      networks:
+        - back-network
+    depends_on: 
+      - "mysql"
+    
+  mysql:
+    image: mysql
+    restart: always
+    volumes:
+      - "./sql/init:/docker-entrypoint-initdb.d"
+    env_file:
+      - sql.env
+    networks:
+      - back-network
+networks:
+  app-network:
+    driver: bridge
