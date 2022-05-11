@@ -7,10 +7,11 @@ const PORT = process.env.PORT || 8000;
 const app: Application = express();
 
 // Cors Configuration
-const allowedOrigins = [ "http://localhost" ]
+const allowedOrigins = [ "shouut.io" , "https://planetary-space-627770.postman.co" ] // for now we edit the hosts file to resolve the domain
 
 const corsOptions :  cors.CorsOptions = {
-  origin: allowedOrigins
+  origin: allowedOrigins,
+  allowedHeaders: ['Content-Type']
 };
 
 app.use(cors(corsOptions))
