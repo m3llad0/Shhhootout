@@ -144,3 +144,6 @@ values(NEW.level_id);
 
 
 
+-- Create Data
+
+INSERT INTO user (username, email) VALUES ("fanzy", "stephan.guingor04@gmail.com");

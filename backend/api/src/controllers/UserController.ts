@@ -2,8 +2,10 @@ import {db} from "../db";
 import { Request, Response } from "express";
 
 const USER_TABLE = 'user'
+const ERR_MISSING_USER_FIELD = "Missing `username`"
+const ERR_MISSING_EMAIL_FIELD = "Missing `email`"
 const ERR_INVALID_EMAIL = "email is invalid: "
-
+const ERR_INVALID_USERNAME_LENGTH = "username length is too short"
 const emailRegex = new RegExp(/^\S+@\S+\.\S\S+$/);
 
 
@@ -12,54 +14,79 @@ interface CreateUserResponse {
   message: string
 }
 
-
-
-  export const CreateUser = async (req : Request, res: Response) : Promise<CreateUserResponse> =>  {
+  export const CreateUser = async (req : Request, res: Response) : Promise<void> =>  {
     
-    //  validate 
+    // Recieve request data
     const username : string | null = req.body?.username
     const email : string | null = req.body?.email
-    if (!emailRegex.test(email)) {
-      // invalid email address
-      res.json({
-        message : ERR_INVALID_EMAIL + email // verify
+
+    // Verify we received all fields
+    if (username === null) {
+      res.status(400).json({
+        message : ERR_MISSING_USER_FIELD
       })
 
       return
     }
 
-    
+    if (email === null) {
+      res.status(400).json({
+        message : ERR_MISSING_EMAIL_FIELD
+      })
 
-    // create user
-    const query = `
-      INSERT INTO ${USER_TABLE} (username, email) VALUES (? ?)"
-    `
+      return
+    }
 
+    // Validate username
+    if (username?.length < 5) {
+      res.status(400).json({
+        message : ERR_INVALID_USERNAME_LENGTH + ": " + username.length
+      })
+
+      return
+    }
+
+    // Validate Email
+    if (!emailRegex.test(email)) {
+  
+      res.status(400).json({
+        message : ERR_INVALID_EMAIL + email
+      })
+
+      return
+    }
+
+    // Create User Query
+    // TODO: Improve Buisiness logic to create temporal users until they get verified.
+    const query = `insert into ${USER_TABLE} (username,email) values (?, ?);`
     const values = [username, email]
-
     try {
       const poolConnection =  await db.getConnection()
-      console.log(poolConnection)
-      const r = await poolConnection.query(
+      const [data, _] = await poolConnection.query(
         query,
         values
       )
       
+      res.status(201).json(
+        {
+          "message" :  `User created ${username}`
+        }
+      )
+      return
+
     } catch (error) {
-      console.log(error)
+      // Handle SQL Errors
+      if (error?.code  == 'ER_DUP_ENTRY') {
+        res.status(400).json({
+          message: `ERROR: ${error?.sqlMessage}`
+        })
+
+        return
+      }
+      
+      // Unkown Error
+      res.status(500).json({
+        message: "An error has occured."
+      })
     }
-  
-
-
-     
-    
-   
-  
-
-
-    // we create an account and link to email. We would expect email verification eventually.
-    // validate with oath or email
-
-    // 
-
  }  
