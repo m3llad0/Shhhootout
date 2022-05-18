@@ -14,3 +14,9 @@ declare interface CreateUserResponse {
   message: string
 }
 
+
+interface JWTData {
+  user_id: string
+  
+}
+

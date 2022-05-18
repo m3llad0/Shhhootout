@@ -4,10 +4,19 @@ use game;
 
 -- Table creation
 
+-- create table if not exists  `activation_token` (
+-- 	token_id varchar(255) primary key,
+--     user_id varchar(20) NOT NULL unique,
+--     expire_date datetime NOT NULL
+-- );
+
 create table if not exists  `user` (
 	user_id binary(16) primary key default (UUID_TO_BIN(UUID())),
     username varchar(20) NOT NULL unique,
-    email varchar(255) unique
+    password varchar(255) NOT NULL,
+    -- password varchar(255) NOT NULL
+    email varchar(255) unique NOT NULL
+    -- active boolean default false
 );
 
 create table if not exists  `level` (
