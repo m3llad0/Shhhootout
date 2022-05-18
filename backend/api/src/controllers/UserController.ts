@@ -2,14 +2,19 @@ import { db } from "../db";
 import { Request, Response } from "express";
 import { generateAccessToken } from "../middleware/auth";
 import { PoolConnection } from "mysql2/promise";
-import { SMPTSendEmail } from "../shared/email/email";
+import { hashPassword, isStrongPassword, verifyPassword } from "../shared/utils/crypto";
 
 const USER_TABLE = 'user'
 const USER_STATISTICS = 'global_statistic'
 const ERR_MISSING_USER_FIELD = "Missing `username`"
+const ERR_MISSING_ACCOUNT_FIELD = "Missing `account`"
+const ERR_MISSING_PASSWORD_FIELD = "Missing `password`"
+const ERR_ACCOUNT_NOT_FOUND = "Account not found"
 const ERR_MISSING_EMAIL_FIELD = "Missing `email`"
 const ERR_INVALID_EMAIL = "email is invalid: "
 const ERR_INVALID_USERNAME_LENGTH = "username length is too short"
+const ERR_WRONG_PASSWORD = "wrong password"
+const ERR_PASSWORD_WEAK = "password is weak"
 const emailRegex = new RegExp(/^\S+@\S+\.\S\S+$/);
 
 /**
@@ -23,9 +28,10 @@ export const RegisterUser = async (req : Request, res: Response) : Promise<void>
   // Get request json body
   const username : string | null = req.body?.username
   const email : string | null = req.body?.email
+  const password : string = req.body?.password
 
   // Return error if user field is missing
-  if (username === null) {
+  if (!username) {
     res.status(400).json({
       message : ERR_MISSING_USER_FIELD
     })
@@ -34,9 +40,18 @@ export const RegisterUser = async (req : Request, res: Response) : Promise<void>
   }
 
   // Return error if email field is missing
-  if (email === null) {
+  if (!email) {
     res.status(400).json({
       message : ERR_MISSING_EMAIL_FIELD
+    })
+
+    return
+  }
+
+  // Return error if email field is missing
+  if (!password) {
+    res.status(400).json({
+      message : ERR_MISSING_PASSWORD_FIELD
     })
 
     return
@@ -61,11 +76,25 @@ export const RegisterUser = async (req : Request, res: Response) : Promise<void>
     return
   }
 
-  let query = `insert into ${USER_TABLE} (username,email) values (?, ?);`
-  let values = [username, email]
+  // Validate password is strong
+  if (!isStrongPassword(password)) {
+    res.status(400).json({
+      message : ERR_PASSWORD_WEAK
+    })
 
-  // define user_id as we will be returning it at the end.
-  let user_id : string | undefined;
+    return
+  }
+
+  const hashedPassword = await hashPassword(password)
+
+  if (hashedPassword == null) {
+    res.sendStatus(500)
+
+    return
+  }
+
+  let query = `insert into ${USER_TABLE} (username,email,password) values (?, ?, ?);`
+  let values = [username, email, hashedPassword]
 
   // Declare poolConnection so we can close it in case something goes wrong.
   let poolConnection : PoolConnection | undefined;
@@ -78,21 +107,10 @@ export const RegisterUser = async (req : Request, res: Response) : Promise<void>
       values
     )
     
-    // We query the id of the newly created user.
-    query = `select BIN_TO_UUID(user_id) as  user_id from ${USER_TABLE} where username=?;`
-    values = [ username ]
-
-    // The query method automatically escapes user input.
-    const [user_id_raw, ] = await poolConnection.query(
-      query,
-      values
-    )
-
-    // We parse the user_id
-    // TODO: Ensure nothing can go wrong
-    user_id = user_id_raw[0]["user_id"]
+    
     
   } catch (error) {
+    console.error(error)
     // The user is a duplicated entry, either the email or username is taken.
     if (error?.code  == 'ER_DUP_ENTRY') {
       res.status(400).json({
@@ -113,19 +131,12 @@ export const RegisterUser = async (req : Request, res: Response) : Promise<void>
     poolConnection?.release()
   }
 
-  // TODO: Temporal because we dont have a login endpoint
-  // Generate access token with the user_id
-  const jwt = generateAccessToken({ user_id: user_id})
+  res.status(201).json({
+    message: `User ${username} created!`
+  })
 
-  // Return jwt so the user can access protected endpoints, 201 as it was created.
-  res.status(201).json(
-    {
-      "token" :  `${jwt}`
-    }
-  )
   return
 }  
-
 
 /**
  * Tries to login a verified user with its credentials, and returns a jwt token.
@@ -134,16 +145,86 @@ export const RegisterUser = async (req : Request, res: Response) : Promise<void>
  * @return {[void]}      
  */
  export const LoginUser = async (req : Request, res: Response) : Promise<void> => {
-  const info = await SMPTSendEmail({
-    subject : "string",
-    type : "html" ,
-    to: [],
-    message: "token.html"
-})
+    const account = req.body?.account 
+    const password = req.body?.password
 
-  console.log("Info: " + info)
+      // Return error if user field is missing
+    if (!account) {
+      res.status(400).json({
+        message : ERR_MISSING_ACCOUNT_FIELD
+      })
 
-  res.json(info)
+      return
+    }
+
+    // Return error if email field is missing
+    if (!password) {
+      res.status(400).json({
+        message : ERR_MISSING_PASSWORD_FIELD
+      })
+
+      return
+    }
+
+    let poolConnection;
+    let user_id;
+
+    const query = `select BIN_TO_UUID(user_id) as  user_id, password from ${USER_TABLE} where username=? or email=?`
+    const values = [account, account]
+    try {
+      // Get pool connection from the database and create a user.
+      poolConnection =  await db.getConnection()
+      const [data, ] = await poolConnection.query(
+        query,
+        values
+      )
+      
+    
+      if (!data || data?.length < 1) {
+        res.status(404).json({
+          message: ERR_ACCOUNT_NOT_FOUND
+        })
+
+        return
+      }
+
+      const passwordHash = data[0].password
+
+      const validPassword = await verifyPassword(password, passwordHash)
+      console.log(validPassword)
+      if (!validPassword) {
+        res.status(400).json({
+          message: ERR_WRONG_PASSWORD
+        })
+
+        return
+      }
+
+      user_id = data[0]["user_id"]
+      
+    } catch (error) {
+      console.error(error)
+      // An unknown error happened while performing a database operation.
+      res.status(500).json({
+        message: "An error has occured."
+      })
+  
+      return
+    } finally {
+      // We close the connection to the database, so other instances can use it.
+      poolConnection?.release()
+    }
+
+    // Generate access token with the user_id
+    const jwt = generateAccessToken({ user_id: user_id})
+
+    // Return jwt so the user can access protected endpoints, 201 as it was created.
+    res.status(200).json(
+      {
+        "token" :  `${jwt}`
+      }
+    )
+
 }
 
 /**

@@ -13,8 +13,9 @@ use game;
 create table if not exists  `user` (
 	user_id binary(16) primary key default (UUID_TO_BIN(UUID())),
     username varchar(20) NOT NULL unique,
+    password varchar(255) NOT NULL,
     -- password varchar(255) NOT NULL
-    email varchar(255) unique
+    email varchar(255) unique NOT NULL
     -- active boolean default false
 );
 

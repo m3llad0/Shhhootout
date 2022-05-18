@@ -21,7 +21,7 @@ const corsOptions :  cors.CorsOptions = {
 app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use(morgan("apache"))
+app.use(morgan("dev"))
 app.use(Router)
 
 app.listen(PORT, () => {

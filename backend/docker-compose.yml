@@ -11,13 +11,12 @@ services:
     ports: 
       - "8000:8000"
     volumes: 
-      - ./api:/home/node/app"
+      - ./api:/home/node/app
       - ./api/node_modules:/home/node/app/node_modules
     networks:
       - back-network
     depends_on: 
       - "db"
-    
   db:
     image: mysql:8-oracle
     restart: always
