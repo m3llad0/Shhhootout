@@ -40,6 +40,11 @@ public static class APIConnection
     {
         public string message;
     }
+
+    public struct Wrapper<T>
+    {
+        public T[] items;
+    }
     
     [Serializable]
     public struct DeleteLevelResponse 
@@ -249,12 +254,12 @@ public static class APIConnection
     public static IEnumerator GetTrendingLevels(Action<Result<Level[]>> callback)
     {
         
-        using UnityWebRequest www = UnityWebRequest.Get(BASE_URL + LOGIN_URI + LEVEL_TREND_URI);
+        using UnityWebRequest www = UnityWebRequest.Get(BASE_URL + LEVEL_TREND_URI);
       
         // We send our http request
         yield return www.SendWebRequest();
 
-        Result<Level[]> result = new Result<Level[]>();
+        Result< Level[] > result = new Result< Level[]>();
         
         // Check for errors
         if (www.result != UnityWebRequest.Result.Success)
@@ -266,8 +271,9 @@ public static class APIConnection
         }
         else
         {
-            Level[] response = JsonUtility.FromJson<Level[]>(www.downloadHandler.text);
-            result.data = response;
+           
+            Wrapper<Level> response = JsonUtility.FromJson<Wrapper<Level>>( "{\"items\":"  + www.downloadHandler.text + "}");
+            result.data = response.items;
             result.ok = true;
         }
 

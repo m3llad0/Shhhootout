@@ -14,12 +14,12 @@ public class SessionManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
+            Debug.Log(JSBrowserPlugin.GetLocalStorage("token"));
             return;
         }
         
         Destroy(this);
     }
-
     public void SetToken(string token)
     {
         this.token = token;
