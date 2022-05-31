@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "declaration": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "outDir": "build",
+    "rootDir": "./src",
+    "allowJs": true
+  },
+  "lib": [
+    "ES2021"
+  ],
+  "src": [
+    "src/**/*",
+  ],
+  "exlude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
