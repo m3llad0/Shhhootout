@@ -7,11 +7,13 @@ public class EnemyHealth : MonoBehaviour
     public int enemyHealth = 100;
 
     public Bullet _bullet;
+    public PlayerScore _score;
 
 
     void Start()
     {
         _bullet = FindObjectOfType<Bullet>();
+        _score = FindObjectOfType<PlayerScore>();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -26,6 +28,7 @@ public class EnemyHealth : MonoBehaviour
             if(enemyHealth <= 0)
             {
                 gameObject.SetActive(false);
+                _score.UpdateScore(100);
                 Debug.Log("Dead!");
             }
         }

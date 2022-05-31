@@ -11,14 +11,18 @@ https://www.youtube.com/watch?v=LNLVOjbrQj4&ab_channel=Brackeys
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
-
     public Rigidbody2D rb;
     public Camera cam;
-
     Vector2 movement;
     Vector2 mousePos;
 
-    // Update is called once per frame
+ 
+    void Start()
+    {
+        Timer.instantiate.startTime();
+
+        cam = Camera.main;
+    }
     void Update()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
