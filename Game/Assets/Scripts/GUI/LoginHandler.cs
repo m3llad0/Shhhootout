@@ -29,7 +29,6 @@ public class LoginHandler : MonoBehaviour
             }
 
             SessionManager.Instance.SetToken(result.data.token);
-            Debug.Log("Logged In");
         }));
     }
 
