@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Winsconsin
+  m_text: Lomas Turbas
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Fanzy
+  m_text: Rosa Melano
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 200
+  m_text: 100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -531,13 +531,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5584492088025188748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be260b532b4ecdc49bacfec43d6a4d58, type: 3}
+  m_Script: {fileID: 11500000, guid: 8085e4e0b55de1c47bc2aceffa6e4924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   levelData:
-    authorName: Fanzy
-    levelName: Winsconsin
-    likes: 200
+    authorName: Rosa Melano
+    levelName: Lomas Turbas
+    likes: 100
 --- !u!1 &5584492088059981380
 GameObject:
   m_ObjectHideFlags: 0
