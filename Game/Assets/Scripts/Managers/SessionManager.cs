@@ -20,6 +20,7 @@ public class SessionManager : MonoBehaviour
             if (token != "")
             {
                 SetToken(token);
+                /*Aparecer overlay login*/
             }
         #endif
             return;
