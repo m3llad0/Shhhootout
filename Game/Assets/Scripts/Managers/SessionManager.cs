@@ -14,7 +14,14 @@ public class SessionManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this);
-            Debug.Log(JSBrowserPlugin.GetLocalStorage("token"));
+            
+        #if !UNITY_EDITOR && UNITY_WEBGL
+            string token = JSBrowserPlugin.GetLocalStorage("token");
+            if (token != "")
+            {
+                SetToken(token);
+            }
+        #endif
             return;
         }
         
@@ -23,6 +30,10 @@ public class SessionManager : MonoBehaviour
     public void SetToken(string token)
     {
         this.token = token;
+      
+    #if !UNITY_EDITOR && UNITY_WEBGL
+        JSBrowserPlugin.SetLocalStorage("token", token);  
+    #endif 
     }
 
     public string GetToken()
