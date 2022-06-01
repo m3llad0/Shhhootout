@@ -20,7 +20,7 @@ create table if not exists  `user` (
 );
 
 create table if not exists  `level` (
-	level_id binary(16) primary key default (UUID_TO_BIN(UUID())),
+	level_id binary(16) primary key unique default (UUID_TO_BIN(UUID())),
     creator_id binary(16),
     name varchar(20),
     verified bool default false,
@@ -35,8 +35,6 @@ create table if not exists  `room` (
 	id binary(16) primary key default (UUID_TO_BIN(UUID())),
 	level_id binary(16),
     room_id tinyint NOT NULL,
-	x float4 NOT NULL,
-    y float4 NOT NULL,
     
     foreign key (level_id) references `level`(level_id) on delete cascade
 );
@@ -45,8 +43,6 @@ create table if not exists  `object` (
 	id binary(16) primary key default (UUID_TO_BIN(UUID())),
 	level_id binary(16),
     object_id tinyint NOT NULL,
-	x float4 NOT NULL,
-    y float4 NOT NULL,
 	extra_data  binary(32),
     
     foreign key (level_id) references `level`(level_id) on delete cascade
@@ -123,17 +119,6 @@ select score.level_id, COALESCE(highscore, 0) as highscore, `name`, COUNT(score.
     group by user_id
 );
 
-
--- Stored Procedures as an example (we want the buisiness logic on the backend)
-create procedure SelectAllUsers()
-comment "Selects all users"
-select * from `user`;
-
-create procedure GetUserStatistics( IN id binary(16) )
-comment "Gets user statistics based on its user_id"
-select * from user_level_statistics where user_id=id;
-
-
 -- Triggers  
 
 -- could automate for all tables containing a user
@@ -152,7 +137,3 @@ insert into `level_statistic`(level_id)
 values(NEW.level_id);
 
 
-
--- Create Data
-
-INSERT INTO user (username, email) VALUES ("fanzy", "stephan.guingor04@gmail.com");
