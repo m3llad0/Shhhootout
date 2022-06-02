@@ -31,12 +31,25 @@ public static class APIConnection
     {
         public string message;
     }
-    
+
+[Serializable]
+    public struct User
+    {
+        public string user_id;
+        public string username;
+        public string email;
+        
+    }
     
     [Serializable]
-    public struct Level 
+    public struct Level
     {
-        public string message;
+        public string level_id; 
+        public string description;
+        public string create_date;
+        public string name;
+        public User user;
+        public string jsonData;
     }
 
     public struct Wrapper<T>
@@ -179,7 +192,7 @@ public static class APIConnection
     /// <param name="levelID"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static IEnumerator CreateLevel(string levelID, Action<Result<RegisterResponse>> callback)
+    public static IEnumerator CreateLevel(string jsonData, Action<Result<RegisterResponse>> callback)
     {
         throw new NotImplementedException();
     } 
@@ -269,7 +282,7 @@ public static class APIConnection
         }
         else
         {
-           
+        
             Wrapper<Level> response = JsonUtility.FromJson<Wrapper<Level>>( "{\"items\":"  + www.downloadHandler.text + "}");
             result.data = response.items;
             result.ok = true;
