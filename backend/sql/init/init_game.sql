@@ -25,27 +25,11 @@ create table if not exists  `level` (
     name varchar(20),
     verified bool default false,
     description text,
+    data json,
     update_date datetime default NOW(),
     create_date datetime default NOW(),
     
 	foreign key (creator_id) references `user`(user_id)
-);
-
-create table if not exists  `room` (
-	id binary(16) primary key default (UUID_TO_BIN(UUID())),
-	level_id binary(16),
-    room_id tinyint NOT NULL,
-    
-    foreign key (level_id) references `level`(level_id) on delete cascade
-);
-
-create table if not exists  `object` (
-	id binary(16) primary key default (UUID_TO_BIN(UUID())),
-	level_id binary(16),
-    object_id tinyint NOT NULL,
-	extra_data  binary(32),
-    
-    foreign key (level_id) references `level`(level_id) on delete cascade
 );
 
 create table if not exists  `session` (
