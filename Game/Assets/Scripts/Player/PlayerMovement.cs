@@ -12,16 +12,20 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
-    public Camera cam;
+    private Camera cam;
     Vector2 movement;
     Vector2 mousePos;
 
- 
+    /// <summary>
+    /// Awake is called when the script instance is being loaded.
+    /// </summary>
+    void Awake()
+    {
+        cam = Camera.main;
+    }
     void Start()
     {
         Timer.instantiate.startTime();
-
-        cam = Camera.main;
     }
     void Update()
     {
