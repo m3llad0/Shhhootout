@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 116.6, y: 0}
-  m_SizeDelta: {x: 117.5415, y: 50}
+  m_AnchoredPosition: {x: 152.92723, y: 0}
+  m_SizeDelta: {x: 190.1959, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5584492087282506442
 CanvasRenderer:
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lomas Turbas
+  m_text: Name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -170,8 +170,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 31, y: -11.283}
-  m_SizeDelta: {x: 93.9872, y: 27.435}
+  m_AnchoredPosition: {x: 78.068375, y: -11.283}
+  m_SizeDelta: {x: 188.1239, y: 27.435}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5584492087796638190
 CanvasRenderer:
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Rosa Melano
+  m_text: Some
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 2
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -303,10 +303,10 @@ RectTransform:
   m_Father: {fileID: 5584492088025188749}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -169.1, y: 0}
-  m_SizeDelta: {x: 38.3778, y: 38.3778}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 26, y: 0}
+  m_SizeDelta: {x: 38.377808, y: 38.3778}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5584492087844218843
 CanvasRenderer:
@@ -381,8 +381,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000076294, y: -16.5}
-  m_SizeDelta: {x: 30.033, y: 16.4054}
+  m_AnchoredPosition: {x: 0, y: -16.5}
+  m_SizeDelta: {x: 70, y: 16.4054}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5584492087916340423
 CanvasRenderer:
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: 1200
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -491,6 +491,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5584492088025188749}
   - component: {fileID: 7408848469771376867}
+  - component: {fileID: 7811389753180930832}
   m_Layer: 5
   m_Name: LevelPreview
   m_TagString: Untagged
@@ -531,13 +532,70 @@ MonoBehaviour:
   m_GameObject: {fileID: 5584492088025188748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8085e4e0b55de1c47bc2aceffa6e4924, type: 3}
+  m_Script: {fileID: 11500000, guid: be260b532b4ecdc49bacfec43d6a4d58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   levelData:
-    authorName: Rosa Melano
-    levelName: Lomas Turbas
-    likes: 100
+    id: 1
+    authorName: Some
+    levelName: Name
+    likes: 1200
+--- !u!114 &7811389753180930832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5584492088025188748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7408848469771376867}
+        m_TargetAssemblyTypeName: LevelPreview, Assembly-CSharp
+        m_MethodName: Load
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5584492088059981380
 GameObject:
   m_ObjectHideFlags: 0
@@ -573,7 +631,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000011444, y: 10.422}
+  m_AnchoredPosition: {x: 0.000011444092, y: 10.422}
   m_SizeDelta: {x: 20.8445, y: 20.8445}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5584492088059981383
@@ -649,6 +707,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -37.600006, y: -35.000015}
-  m_SizeDelta: {x: 54.142, y: 54.142}
+  m_AnchoredPosition: {x: -59.38208, y: -35.000015}
+  m_SizeDelta: {x: 97.7061, y: 54.142}
   m_Pivot: {x: 0.5, y: 0.5}

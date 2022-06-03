@@ -8,160 +8,157 @@ using UnityEngine.Tilemaps;
 
 public class MapManager : MonoBehaviour
 {
-    [SerializeField] private Tilemap _floorMap, _wallMap, _objectMap, _doorMap;
+  [SerializeField] private Tilemap _floorMap, _wallMap, _objectMap, _doorMap;
 
-    private void Start()
+  private void Start()
+  {
+    LoadMap(LevelLoader.Instance.CurrentLevel);
+  }
+
+  public void SaveMap()
+  {
+    LevelData level = new LevelData();
+    level.wallTiles = GetTilesFromMap(_wallMap).ToList();
+    level.floorTiles = GetTilesFromMap(_floorMap).ToList();
+    level.objectTiles = GetTilesFromMap(_objectMap).ToList();
+
+    string jsonData = JsonUtility.ToJson(level);
+    // callback(jsonData);
+
+    var data = new APIConnection.CreateLevelRequest()
     {
-       LoadMap(LevelLoader.Instance.CurrentLevel); 
-    }
+      description = "Basic Description",
+      name = "Some Cool name",
+      level_data = jsonData
+    };
 
-    public void SaveMap()
+    StartCoroutine(APIConnection.CreateLevel(data, "", result =>
     {
-        LevelData level = new LevelData();
-        level.wallTiles = GetTilesFromMap(_wallMap).ToList();
-        level.floorTiles = GetTilesFromMap(_floorMap).ToList(); 
-        level.objectTiles = GetTilesFromMap(_objectMap).ToList();
+      if (!result.ok)
+      {
+        Debug.LogError(result.error.message);
+        return;
+      }
 
-        string jsonData = JsonUtility.ToJson(level);
-        // callback(jsonData);
+      Debug.Log("Level Created!");
 
-        var data = new APIConnection.CreateLevelRequest()
+      // could set up events to fire on level creation
+    }));
+  }
+
+  IEnumerable<SavedTile> GetTilesFromMap(Tilemap map)
+  {
+    foreach (Vector3Int position in map.cellBounds.allPositionsWithin)
+    {
+      if (map.HasTile(position))
+      {
+        LevelTile tile = map.GetTile<LevelTile>(position);
+        yield return new SavedTile()
         {
-            description = "Basic Description",
-            name = "Some Cool name",
-            level_data = jsonData
+          Position = position,
+          Tile = tile
         };
-        
-        StartCoroutine(APIConnection.CreateLevel(data,"", result =>
-        {
-            if (!result.ok)
-            {
-                Debug.LogError(result.error.message);
-                return;
-            }
-            
-            Debug.Log("Level Created!");
-            
-            // could set up events to fire on level creation
-        }));
+      }
     }
 
-    IEnumerable<SavedTile> GetTilesFromMap(Tilemap map)
+  }
+
+  public void LoadMap(string id)
+  {
+    Debug.Log("Loading Map: " + id);
+    StartCoroutine(APIConnection.GetLevel(id, result =>
     {
-        foreach (Vector3Int position in map.cellBounds.allPositionsWithin)
+      if (!result.ok)
+      {
+        Debug.Log(result.error.message);
+        return;
+      }
+
+
+      // if (result.data.level_data == null)
+      // {
+      //     Debug.Log("No Data...");
+      //     return;
+      // }
+      //
+      Debug.Log(result.data.level_data);
+      LevelData mapData = result.data.level_data;
+
+      ClearMap();
+
+      foreach (var tile in mapData.floorTiles)
+      {
+        switch (tile.Tile.Type)
         {
-            if (map.HasTile(position))
-            {
-                LevelTile tile = map.GetTile<LevelTile>(position);
-                yield return new SavedTile()
-                {
-                    Position = position,
-                    Tile = tile
-                };
-            } 
+          case TileType.Asphalt:
+          case TileType.Dirt:
+          case TileType.Sand:
+            _floorMap.SetTile(tile.Position, tile.Tile);
+            break;
+          default:
+            throw new ArgumentOutOfRangeException("Invalid tile type");
         }
-        
-    }
-
-    public void LoadMap(string id)
-    {
-        Debug.Log("Loading Map: " + id);
-        StartCoroutine(APIConnection.GetLevel(id, result =>
+      }
+      foreach (var tile in mapData.wallTiles)
+      {
+        switch (tile.Tile.Type)
         {
-            if (!result.ok)
-            {
-                Debug.Log(result.error.message);
-                return;
-            }
-            
-           
-            // if (result.data.level_data == null)
-            // {
-            //     Debug.Log("No Data...");
-            //     return;
-            // }
-            //
-            Debug.Log(result.data.level_data);
-            LevelData mapData = result.data.level_data;
+          case TileType.Asphalt:
+            _wallMap.SetTile(tile.Position, tile.Tile);
+            break;
+          default:
+            throw new ArgumentOutOfRangeException("Invalid tile type");
+        }
+      }
+      foreach (var tile in mapData.objectTiles)
+      {
+        switch (tile.Tile.Type)
+        {
+          case TileType.Tank:
+          case TileType.SandBag:
+          case TileType.Crate:
+            _objectMap.SetTile(tile.Position, tile.Tile);
+            break;
+          default:
+            throw new ArgumentOutOfRangeException("Invalid tile type");
+        }
+      }
+      foreach (var tile in mapData.doorTiles)
+      {
+        switch (tile.Tile.Type)
+        {
+          case TileType.Tank:
+          case TileType.SandBag:
+          case TileType.Crate:
+            _doorMap.SetTile(tile.Position, tile.Tile);
+            break;
+          default:
+            throw new ArgumentOutOfRangeException("Invalid tile type");
+        }
+      }
+    }));
 
-            ClearMap();
+  }
 
-            foreach (var tile in mapData.floorTiles)
-            {
-                switch (tile.Tile.Type)
-                {
-                    case TileType.Asphalt:
-                    case TileType.Dirt:
-                    case TileType.Sand:
-                        _floorMap.SetTile(tile.Position, tile.Tile);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException("Invalid tile type");
-                }
-            }
+  public void ClearMap()
+  {
+    Tilemap[] maps = FindObjectsOfType<Tilemap>();
 
-            foreach (var tile in mapData.wallTiles)
-            {
-                switch (tile.Tile.Type)
-                {
-                    case TileType.Asphalt:
-                        _wallMap.SetTile(tile.Position, tile.Tile);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException("Invalid tile type");
-                }
-            }
-
-            foreach (var tile in mapData.objectTiles)
-            {
-                switch (tile.Tile.Type)
-                {
-                    case TileType.Tank:
-                    case TileType.SandBag:
-                    case TileType.Crate:
-                        _objectMap.SetTile(tile.Position, tile.Tile);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException("Invalid tile type");
-                }
-            }
-
-            foreach (var tile in mapData.doorTiles)
-            {
-                switch (tile.Tile.Type)
-                {
-                    case TileType.Tank:
-                    case TileType.SandBag:
-                    case TileType.Crate:
-                        _doorMap.SetTile(tile.Position, tile.Tile);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException("Invalid tile type");
-                }
-            }
-        }));
-
-    }
-    
-    public void ClearMap()
+    foreach (var map in maps)
     {
-       Tilemap[] maps =  FindObjectsOfType<Tilemap>();
-
-       foreach (var map in maps)
-       {
-           map.ClearAllTiles();
-       }
+      map.ClearAllTiles();
     }
+  }
 }
 
 [Serializable]
 public struct LevelData
 {
-    // Could expand to many rooms
-    public List<SavedTile> floorTiles;
-    public List<SavedTile> wallTiles;
-    public List<SavedTile> objectTiles;
-    public List<SavedTile> doorTiles;
+  // Could expand to many rooms
+  public List<SavedTile> floorTiles;
+  public List<SavedTile> wallTiles;
+  public List<SavedTile> objectTiles;
+  public List<SavedTile> doorTiles;
 
 }
 
@@ -176,6 +173,6 @@ public struct LevelData
 [Serializable]
 public struct SavedTile
 {
-    public Vector3Int Position;
-    public LevelTile Tile;
+  public Vector3Int Position;
+  public LevelTile Tile;
 }
