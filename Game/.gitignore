@@ -47,7 +47,7 @@ ExportedObj/
 *.pidb.meta
 *.pdb.meta
 *.mdb.meta
-*.png.meta
+#*.png.meta
 *.meta
 *.psd
 
