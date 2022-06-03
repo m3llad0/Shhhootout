@@ -26,14 +26,6 @@ INSERT INTO level  (creator_id, name, verified, description)
 SELECT user_id, "Some", false, "Description"
 FROM user;
 
-INSERT INTO room  (level_id, room_id)
-SELECT level_id, floor(rand() * 100)
-FROM level;
-
-INSERT INTO object (level_id, object_id, extra_data)
-SELECT level_id, floor(rand() * 100), CONV(123, 2, 16)
-FROM level;
-
 INSERT INTO session(user_id, time_editor, time_play, time_other, agent)
 select user_id, floor(rand() * 100), floor(rand() * 100), floor(rand() * 100), "mozilla"
 from user;
