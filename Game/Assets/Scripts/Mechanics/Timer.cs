@@ -11,7 +11,7 @@ Electronic Rats
 public class Timer : MonoBehaviour
 {
     public static Timer instantiate;
-    public Text chrono;
+    private Text chrono;
     private TimeSpan timeChrono;
     private bool timerBool;
     private float time;
@@ -19,6 +19,8 @@ public class Timer : MonoBehaviour
     void Awake()
     {
         instantiate = this; //nutz
+        chrono = GameObject.FindGameObjectWithTag("Timer").GetComponent<Text>();
+
     }
 
     void Start()
