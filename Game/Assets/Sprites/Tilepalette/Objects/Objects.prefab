@@ -106,7 +106,21 @@ Tilemap:
       m_TileColorIndex: 2
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
+<<<<<<< HEAD
       m_AllTileFlags: 1073741827
+=======
+      m_AllTileFlags: 1073741825
+  - first: {x: 1, y: -1, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 5
+      m_TileSpriteIndex: 5
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+>>>>>>> videojuegos
   - first: {x: -1, y: 0, z: 0}
     second:
       serializedVersion: 2
@@ -148,7 +162,13 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 0}
   - m_RefCount: 1
+<<<<<<< HEAD
     m_Data: {fileID: 11400000, guid: 55bab0643951a084984c5ea1d2da3c48, type: 2}
+=======
+    m_Data: {fileID: 11400000, guid: edb831fd1ef91c0458894363b28a89b9, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 419f7b3450e0cde41bbd98a2bbe194a2, type: 2}
+>>>>>>> videojuegos
   m_TileSpriteArray:
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: e245c6e7250f7b9429446ac3a28cb7a9, type: 3}
@@ -159,9 +179,15 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: 0}
   - m_RefCount: 1
+<<<<<<< HEAD
     m_Data: {fileID: 21300000, guid: d23452d4f9d9c4445a17a14ee934fb7c, type: 3}
+=======
+    m_Data: {fileID: 21300000, guid: 9deb17fd413cf6649a487896c3f13d72, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: 7304b9d433c9de343821f18e1f37620a, type: 3}
+>>>>>>> videojuegos
   m_TileMatrixArray:
-  - m_RefCount: 5
+  - m_RefCount: 6
     m_Data:
       e00: 1
       e01: 0
@@ -180,6 +206,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
+<<<<<<< HEAD
   - m_RefCount: 0
     m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
   - m_RefCount: 0
@@ -187,6 +214,9 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {r: 0.82212675, g: 0.3824655, b: 0.46594268, a: 1}
   - m_RefCount: 3
+=======
+  - m_RefCount: 6
+>>>>>>> videojuegos
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 1
     m_Data: {r: 0.9040288, g: 0.38806894, b: 0.51815057, a: 1}
@@ -263,7 +293,11 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+<<<<<<< HEAD
 --- !u!114 &7187087027413308105
+=======
+--- !u!114 &1157669368458475984
+>>>>>>> videojuegos
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

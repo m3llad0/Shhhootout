@@ -13,6 +13,13 @@ public class CameraFollow : MonoBehaviour
    	public float yOffset = 0.0f;
 	public float xOffset = 0.0f;
 
+	/// <summary>
+	/// Awake is called when the script instance is being loaded.
+	/// </summary>
+	void Awake()
+	{
+		target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+	}
 	void LateUpdate () 
     {
 		if(target != null)
