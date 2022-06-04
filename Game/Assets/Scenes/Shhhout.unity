@@ -182,7 +182,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.7093825
+  orthographic size: 4.459741
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -226,8 +226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  yOffset: 0
-  xOffset: 0
+  yOffset: -2
+  xOffset: 5
 --- !u!1 &630193180
 GameObject:
   m_ObjectHideFlags: 0
@@ -9158,10 +9158,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3830982116333865405, guid: 9deca7473960e6b418de22aae1dad49b, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5016490466118709912, guid: 9deca7473960e6b418de22aae1dad49b, type: 3}
       propertyPath: m_Name
       value: Player
@@ -9827,7 +9823,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 34067138705758916, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 34067138705758916, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_AnchorMin.x
@@ -9835,7 +9831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 34067138705758916, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 34067138705758916, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_SizeDelta.x
@@ -9847,11 +9843,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 34067138705758916, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 34067138705758916, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -70
       objectReference: {fileID: 0}
     - target: {fileID: 1019986031898711364, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_Pivot.x
@@ -9955,7 +9951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1779501922798656372, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2027571328453312967, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -9987,7 +9983,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636431980030932386, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4636431980030932386, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_AnchorMin.x
@@ -9995,7 +9991,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636431980030932386, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4636431980030932386, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_SizeDelta.x
@@ -10007,11 +10003,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4636431980030932386, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4636431980030932386, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 9010646331075422736, guid: 111a311406787e74383697efaed09dae, type: 3}
       propertyPath: m_AnchoredPosition.x
