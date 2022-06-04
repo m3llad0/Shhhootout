@@ -858,7 +858,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -199.1196, y: -115.6178}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &529722254
@@ -964,7 +964,7 @@ GameObject:
   - component: {fileID: 569659177}
   - component: {fileID: 569659176}
   - component: {fileID: 569659179}
-  - component: {fileID: 569659178}
+  - component: {fileID: 569659180}
   m_Layer: 5
   m_Name: Levels
   m_TagString: Untagged
@@ -1030,18 +1030,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 569659174}
   m_CullTransparentMesh: 1
---- !u!114 &569659178
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 569659174}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee7ce195e39df8c4dba488fdaa2d72d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &569659179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1086,7 +1074,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 569659178}
+      - m_Target: {fileID: 569659180}
         m_TargetAssemblyTypeName: LevelsMenu, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -1098,6 +1086,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &569659180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569659174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f6dcea086f383b48944808b40d300e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &621134617
 GameObject:
   m_ObjectHideFlags: 0
