@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,12 @@ public class LevelSelectManager : MonoBehaviour
 
     public GameObject levelPreview;
     public GameObject grid;
-    
+
+    private void Start()
+    {
+       LoadTrendingLevels(); 
+    }
+
     public void LoadTrendingLevels()
     {
         StartCoroutine(APIConnection.GetTrendingLevels(result =>
@@ -20,14 +26,19 @@ public class LevelSelectManager : MonoBehaviour
                 
                 // Clear Children
                 foreach (Transform child in grid.transform) {
-                    GameObject.Destroy(child.gameObject);
+                    Destroy(child.gameObject);
                 }
                 
                 foreach (APIConnection.Level level in result.data)
                 {
-                    LevelPreview.LevelPreviewData data = new LevelPreview.LevelPreviewData();
+                    LevelPreview.LevelPreviewData data = new LevelPreview.LevelPreviewData
+                    {
+                        id = level.level_id,
+                        authorName = level.user.username,
+                        levelName = level.name
+                    };
 
-                    GameObject levelP = Instantiate(levelPreview);
+                    GameObject levelP = Instantiate(levelPreview, grid.transform);
                     levelP.GetComponent<LevelPreview>().SetPreview(data);
                 }
 
