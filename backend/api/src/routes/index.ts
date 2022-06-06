@@ -1,5 +1,5 @@
 import express from "express"
-import { CreateLevel, DeleteLevel, GetLevel, GetLevelStatistics, GetTrendingLevels, StarLevel, UpdateLevel } from "../controllers/LevelController";
+import { CreateLevel, DeleteLevel, GetLevel, GetLevels, GetLevelStatistics, GetTrendingLevels, StarLevel, UpdateLevel } from "../controllers/LevelController";
 import { RegisterUser, GetUserStatistics, LoginUser } from "../controllers/UserController"
 import { authenticated } from "../middleware/auth";
 // import { MailChimpSendEmail } from "../shared/email/mailchimp";
@@ -11,12 +11,13 @@ router.post('/login', LoginUser)
 
 //  Level routes
 router.post('/level', authenticated(), CreateLevel)
-router.get('/level',  GetLevel)
-router.put('/level',authenticated(),  UpdateLevel)
-router.delete('/level',authenticated(),  DeleteLevel)
+router.get('/level/:id',  GetLevel)
+router.get('/level', authenticated(),  GetLevels)
+router.put('/level/:id',authenticated(),  UpdateLevel)
+router.delete('/level/:id',authenticated(),  DeleteLevel)
 
 router.post('/level/:id/star', authenticated(), StarLevel)
-router.get('/level/trend', GetTrendingLevels)
+router.get('/levels/trend', GetTrendingLevels)
 
 // Statistics
 router.get('/statistics/user/:id', GetUserStatistics)
