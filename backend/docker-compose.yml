@@ -37,4 +37,6 @@ services:
     volumes:
       - ./proxy/proxy.conf:/etc/nginx/nginx.conf:ro
       - ./proxy/ssl/:/ssl/:ro
+    networks:
+      - back-network
 
