@@ -8,11 +8,11 @@ services:
     build: 
       context: ./api
       dockerfile: Dockerfile
-    ports: 
-      - "8000:8000"
+    expose: 
+      - "8000"
     volumes: 
-      - ./api:/home/node/app
-      - ./api/node_modules:/home/node/app/node_modules
+      - ./api:/home/node/app:Z
+      - ./api/node_modules:/home/node/app/node_modules:Z
     networks:
       - back-network
     depends_on: 
@@ -21,10 +21,22 @@ services:
     image: mysql:8-oracle
     restart: always
     volumes:
-      - "./sql/init:/docker-entrypoint-initdb.d"
+      - "./sql/init:/docker-entrypoint-initdb.d:Z,ro"
     env_file:
       - sql.env
     networks:
       - back-network
     expose:
       - "3306"
+  rproxy:
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./proxy/proxy.conf:/etc/nginx/nginx.conf:ro
+      - ./proxy/ssl/:/ssl/:ro
+    networks:
+      - back-network
+
