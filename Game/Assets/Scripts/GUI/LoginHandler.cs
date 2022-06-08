@@ -1,12 +1,13 @@
 using TMPro;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class LoginHandler : MonoBehaviour
 {
     public GameObject accountField;
     public GameObject passwordField;
-    
     public GameObject errorBanner;
+    public GameObject loginOverlay;
     struct FormData
     {
         public string label;
@@ -39,11 +40,16 @@ public class LoginHandler : MonoBehaviour
         GameObject label = field.transform.Find("Label").gameObject;
         GameObject value = field.transform.Find("Value").gameObject;
         
-        result.label = label.GetComponent<TextMeshProUGUI>().text;
+        result.label = label.GetComponent<Text>().text;
         
         // Could extend to support more types
         result.value = value.GetComponent<TMP_InputField>().text;
         return result;
+    }
+
+    public void disableLoginOverlay()
+    {
+        loginOverlay.SetActive(false);
     }
     
 }

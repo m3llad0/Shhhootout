@@ -17,6 +17,9 @@ TagManager:
   - Timer
   - Score
   - Final Door
+  - Login
+  - GameOverlay
+  - Message
   layers:
   - Default
   - TransparentFX

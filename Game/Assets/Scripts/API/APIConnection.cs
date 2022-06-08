@@ -78,7 +78,7 @@ public static class APIConnection
     public string message;
   }
 
-  private const string BASE_URL = "http://192.168.1.7:8000";
+  private const string BASE_URL = "https://api.shhootout.tk/";
   private const string LOGIN_URI = "/login";
   private const string LEVEL_URI = "/level";
   private const string LEVEL_TREND_URI = "/levels/trend";

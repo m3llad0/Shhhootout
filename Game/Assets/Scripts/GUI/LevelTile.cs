@@ -12,13 +12,21 @@ public class LevelTile : Tile
 public enum TileType
 {
     // Floor
-    Dirt = 0,
-    Sand = 1,
-    Asphalt = 2,
+    Wood = 0,
+
+    // Wall
+    CornerWallA = 1001,
+    CornerWallB = 1002,
+    CornerWallC = 1003,
+    CornerWallD = 1004,
     
     // Objects
-    Crate = 1001,
-    SandBag = 1002,
-    Tank = 1003
+    Crate = 2001,
+    SandBag = 2002,
+    Tank = 2003,
     
+
+    // Door
+    DoorA = 3001,
+    DoorB = 3002
 }

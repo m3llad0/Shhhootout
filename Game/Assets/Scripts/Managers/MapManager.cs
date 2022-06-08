@@ -12,7 +12,7 @@ public class MapManager : MonoBehaviour
 
   private void Start()
   {
-    LoadMap(LevelLoader.Instance.CurrentLevel);
+    // LoadMap(LevelLoader.Instance.CurrentLevel);
   }
 
   public void SaveMap()
@@ -23,6 +23,7 @@ public class MapManager : MonoBehaviour
     level.objectTiles = GetTilesFromMap(_objectMap).ToList();
 
     string jsonData = JsonUtility.ToJson(level);
+    Debug.Log(jsonData);
     // callback(jsonData);
 
     var data = new APIConnection.CreateLevelRequest()
@@ -90,9 +91,7 @@ public class MapManager : MonoBehaviour
       {
         switch (tile.Tile.Type)
         {
-          case TileType.Asphalt:
-          case TileType.Dirt:
-          case TileType.Sand:
+          case TileType.Wood:
             _floorMap.SetTile(tile.Position, tile.Tile);
             break;
           default:
@@ -103,7 +102,10 @@ public class MapManager : MonoBehaviour
       {
         switch (tile.Tile.Type)
         {
-          case TileType.Asphalt:
+          case TileType.CornerWallA:
+          case TileType.CornerWallB:
+          case TileType.CornerWallC:
+          case TileType.CornerWallD:
             _wallMap.SetTile(tile.Position, tile.Tile);
             break;
           default:
@@ -127,9 +129,8 @@ public class MapManager : MonoBehaviour
       {
         switch (tile.Tile.Type)
         {
-          case TileType.Tank:
-          case TileType.SandBag:
-          case TileType.Crate:
+          case TileType.DoorA:
+          case TileType.DoorB:
             _doorMap.SetTile(tile.Position, tile.Tile);
             break;
           default:

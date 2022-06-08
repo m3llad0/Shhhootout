@@ -8,6 +8,7 @@ public class SessionManager : MonoBehaviour
     private string token;
     // Start is called before the first frame update
     public static SessionManager Instance { get; private set; }
+    public GameObject loginOverlay; 
     private void Awake()
     {
         if (Instance == null)
@@ -21,6 +22,7 @@ public class SessionManager : MonoBehaviour
             {
                 SetToken(token);
                 /*Aparecer overlay login*/
+                EnableLoginOverlay();
             }
         #endif
             return;
@@ -40,5 +42,10 @@ public class SessionManager : MonoBehaviour
     public string GetToken()
     {
         return this.token;
+    }
+
+    public void EnableLoginOverlay()
+    {
+        loginOverlay.SetActive(true);
     }
 }

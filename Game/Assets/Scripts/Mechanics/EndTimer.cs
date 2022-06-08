@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EndTimer : MonoBehaviour
 {
-    bool end = false;
+    public bool end = false;
 
     void OnCollisionEnter2D(Collision2D collision)
     {
