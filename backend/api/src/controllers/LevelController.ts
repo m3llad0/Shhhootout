@@ -1,16 +1,18 @@
 import { db } from "../db";
 import { query, Request, Response } from "express";
 import { PoolConnection, RowDataPacket } from "mysql2/promise";
+import { Console } from "console";
 
 
 const TRENDING_LEVEL_VIEW = "trending_levels"
 const LEVEL_STATISTiC = "level_statistic"
 const USER_TABLE = "user"
 const LEVEL_TABLE = "level"
-const STARRED_LEVELS = "starred_levels"
+const USER_INTERACTION_TABLE = "user_level_interaction"
 const ERROR_MISSING_NAME = "Missing name"
 const ERROR_MISSING_DESCRIPTION = "Missing description"
 const ERR_INVALID_JSON = "Invalid json"
+const ERR_MISSING_INTERACTION = "Missing interaction (like, completed)"
 
 /**
  * Gets the top n level that have the most amount of downloads in the last week.
@@ -20,7 +22,7 @@ const ERR_INVALID_JSON = "Invalid json"
  */
 export const GetTrendingLevels = async (req: Request, res :Response) => {
 
-    const query = `SELECT BIN_TO_UUID(level_id) as level_id, BIN_TO_UUID(user_id) as user_id, username, email, name, description, create_date FROM ${TRENDING_LEVEL_VIEW} NATURAL JOIN ${USER_TABLE} LIMIT 10`
+    const query = `SELECT level_id as level_id, BIN_TO_UUID(user_id) as user_id, likes, username, email, name, description FROM ${TRENDING_LEVEL_VIEW} NATURAL JOIN ${USER_TABLE} LIMIT 10`
 
     // Declare poolConnection so we can close it in case something goes wrong.
     let poolConnection : PoolConnection | undefined;
@@ -38,6 +40,7 @@ export const GetTrendingLevels = async (req: Request, res :Response) => {
             description: value.description,
             create_date: value.create_date,
             name: value.name,
+            likes: Number(value.likes),
             user: {
               user_id: value.user_id,
               username: value.username,
@@ -76,7 +79,7 @@ export const GetTrendingLevels = async (req: Request, res :Response) => {
  */
 export const GetLevelStatistics = async (req: Request, res :Response) => {
 
-  const query = `SELECT * FROM ${LEVEL_STATISTiC} where level_id=?;`
+  const query = `CALL GetLevelStatistics(UUID_TO_BIN(?));`
 
   // Get the level_id from the path parameter
   const level_id = req.params.id
@@ -93,14 +96,28 @@ export const GetLevelStatistics = async (req: Request, res :Response) => {
         [ level_id ]
       )
       
+        if ((data[0] as any[]).length == 0) {
+          res.send(200).json(
+            {
+              highscore: 0,
+              "likes" : 0,
+              "completed": 0
+            }
+          )
+
+          return
+        }
+
+
       // Operation succeded, return OK (200)
       res.status(200).json(
-          data
+        data[0][0]
       )
 
 
       return
     } catch (error) {  
+      console.log(error)
       // Unkown Error
       res.status(500).json({
         message: "An error has occured."
@@ -216,7 +233,6 @@ export const GetLevels = async (req:  Request, res: Response) => {
           name: value.name,
           description: value.description,
           create_date: value.create_date,
-          level_data: value.level_data,
           user: {
             user_id: value.user_id,
             username: value.username,
@@ -432,14 +448,38 @@ export const DeleteLevel = async (req : Request, res: Response) => {
  * @param  {[Response]} res [Express response]
  * @return {[void]}      
  */
-export const StarLevel = async (req : Request, res : Response) => {
+export const InteractLevel = async (req : Request, res : Response) => {
   const user_id = (req.params.auth as any).user_id;
 
   const level_id = req.params.id;
 
-  const query = `INSERT INTO ${STARRED_LEVELS} (level_id, user_id) values (UUID_TO_BIN(?), UUID_TO_BIN(?));`
+  const like = req.body.like
 
-  const dataQuery = [level_id, user_id];
+  let columns_expr = []
+  let values = []
+
+  if (like) {
+    columns_expr.push("`like`")
+    values.push(like)
+  }
+  const completed = req.body.completed
+
+  if (completed) {
+    columns_expr.push("completed")
+    values.push(completed)
+  }
+
+
+  if (columns_expr.length == 0) {
+    res.status(404).json(
+      { "message": ERR_MISSING_INTERACTION }
+    )
+    return
+  }
+
+  const query = `REPLACE INTO ${USER_INTERACTION_TABLE} (level_id, user_id, ${columns_expr.join(",")}) values (UUID_TO_BIN(?), UUID_TO_BIN(?), ${values.map(() => "?").join(",")} );`
+
+  const dataQuery = [level_id, user_id, ...values];
 
     // Declare poolConnection so we can close it in case something goes wrong.
     let poolConnection : PoolConnection | undefined;
@@ -451,9 +491,10 @@ export const StarLevel = async (req : Request, res : Response) => {
           query,
           dataQuery
         )
-      
+          
+        console.log(data)
       } catch (error) {
-    
+        
         console.log(error)
         res.status(500).json({
           message: "An error has occured."
@@ -468,6 +509,6 @@ export const StarLevel = async (req : Request, res : Response) => {
 
       // Operation succeded, return OK (200)
       res.status(201).json(
-        { message: "Level Starred!"}
+        { message: "Interacted!"}
       )
 }

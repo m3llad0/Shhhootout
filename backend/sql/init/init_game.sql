@@ -60,21 +60,12 @@ create table if not exists   `score` (
 	foreign key (session_id) references `session`(session_id)
 );
 
-create table if not exists  `global_statistic` (
-	user_id binary(16) primary key,
-    levels_played int default 0,
-    deaths int default 0,
-	levels_created smallint default 0,
-    total_downloads int default 0,
-    total_likes int default 0,
-    last_update timestamp default current_timestamp on update current_timestamp,
-  
-	foreign key (user_id) references `user`(user_id) on delete cascade
-);
-
-create table if not exists `starred_levels` (
+create table if not exists `user_level_interaction` (
     level_id binary(16) not null,
     user_id binary(16) not null,
+    `like` bool default false,
+    completed bool default false,
+
 
     foreign key (level_id) references `level`(level_id) on delete cascade,
     foreign key (user_id) references `user`(user_id) on delete cascade,
@@ -82,22 +73,86 @@ create table if not exists `starred_levels` (
     primary key (level_id, user_id)
 );
 
-create table if not exists  `level_statistic` (
-	level_id binary(16) primary key,
-    likes int default 0,
-    deaths int default 0,
-    completions  int default 0,
-	
-    foreign key (level_id) references `level`(level_id) on delete cascade
-);
+
+DELIMITER //
+
+CREATE PROCEDURE GetUserGlobalStatistic (IN user varchar(20)) 
+BEGIN
+
+    DECLARE levels_played,deaths,total_time_played,levels_created INT;
+   
+    select count(DISTINCT score.level_id)
+    into levels_played
+    from `score`
+    join user on score.user_id=user.user_id
+    where user.username=user;
+
+    select count(*)
+    into deaths
+    from `score`
+    join user on score.user_id=user.user_id
+    where user.username=user and completed=false;
+
+    select COALESCE(sum(time_play),0)
+    into total_time_played
+    from `session`
+    join user on session.user_id=user.user_id
+    where user.username=user;
+
+    select count(*)
+    into levels_created
+    from `level`
+    join user on level.creator_id=user.user_id
+    where user.username=user;
+
+    select levels_played, deaths, total_time_played, levels_created;
+
+END // 
+
+
+create procedure GetLevelStatistics (IN level binary(16))
+begin
+    select count(IF(completed = true, 1, 0)) as completions, count(IF(completed = false, 1, 0)) as deaths, COALESCE(min(time),-1) as highscore
+    from `score`
+    where level_id=level;
+
+end // 
+
+CREATE PROCEDURE ValidateUser(
+	IN username VARCHAR(20),
+	IN email VARCHAR(255)
+)
+DETERMINISTIC
+NO SQL
+BEGIN
+	IF CHAR_LENGTH(username) <  5 THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Username must be at least 5 characters';
+	END IF;
+	IF NOT (SELECT email REGEXP '$[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$') THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Wrong email';
+	END IF;
+END//
+
+CREATE PROCEDURE ValidateLevel(
+	IN name VARCHAR(20),
+)
+DETERMINISTIC
+NO SQL
+BEGIN
+	IF CHAR_LENGTH(name) <  2 THEN
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Name must be at least 2 characters';
+	END IF;
+END//
+
+DELIMITER ;
 
 -- View Creation
 create view trending_levels as (
-	select * 
-    from `level`
-    natural join `level_statistic` 
-    order by likes desc
-    limit 10
+select BIN_TO_UUID(level.level_id) as level_id,BIN_TO_UUID(level.creator_id) as creator_id, level.name,level.description, level.verified , SUM(user_level_interaction.like) as likes 
+from level 
+join user_level_interaction on level.level_id=user_level_interaction.level_id
+group by level.level_id 
+limit 10
 );
 
 create view user_level_statistics as (
@@ -116,66 +171,64 @@ select score.level_id, COALESCE(highscore, 0) as highscore, `name`, COUNT(score.
 
 -- Triggers  
 
--- could automate for all tables containing a user
-create trigger tr_create_user_deps 
-after insert
-on `game`.user
-for each row
-insert into `global_statistic`(user_id)
-values(NEW.user_id);
+CREATE TRIGGER validate_user_tr
+BEFORE UPDATE ON user FOR EACH ROW
+CALL ValidateUser(NEW.username, NEW.email);
 
-create trigger tr_create_level_deps 
-after insert
-on `game`.level
-for each row
-insert into `level_statistic`(level_id)
-values(NEW.level_id);
-
+CREATE TRIGGER validate_level_tr
+BEFORE UPDATE ON level FOR EACH ROW
+CALL ValidateLevel(NEW.name);
 
 -- Data
 
 -- Create Data
 
-INSERT INTO user (username, email, password) VALUES 
-("fanzy", "stephan.guingor04@gmail.com", "somehash"),
-("juan", "juan.guingor04@gmail.com", "somehash"),
-("fred", "fred.guingor04@gmail.com", "somehash"),
-("henry", "henry.guingor04@gmail.com", "somehash"),
-("alfred", "alf@gmail.com", "somehash"),
-("jupi", "jupi.guingor04@gmail.com", "somehash"),
-("mei", "mei.guingor04@gmail.com", "somehash"),
-("mayweather", "mayweather.guingor04@gmail.com", "somehash"),
-("shwartz", "shwartz@gmail.com", "somehash"),
-("samailama", "samailama4@gmail.com", "somehash"),
-("penelope", "penelope@gmail.com", "somehash"),
-("freddy", "freddy@gmail.com", "somehash"),
-("wodo", "wodo@gmail.com", "somehash"),
-("diego", "deigo@gmail.com", "somehash"),
-("fran", "fran@gmail.com", "somehash"),
-("felipe", "felipe@gmail.com", "somehash"),
-("jaunito", "jaunito@gmail.com", "somehash"),
-("elmo", "elmo@gmail.com", "somehash"),
-("elmordisko", "elmordisko@gmail.com", "somehash");
+-- INSERT INTO user (username, email, password) VALUES 
+-- ("fanzy", "stephan.guingor04@gmail.com", "somehash"),
+-- ("juan", "juan.guingor04@gmail.com", "somehash"),
+-- ("fred", "fred.guingor04@gmail.com", "somehash"),
+-- ("henry", "henry.guingor04@gmail.com", "somehash"),
+-- ("alfred", "alf@gmail.com", "somehash"),
+-- ("jupi", "jupi.guingor04@gmail.com", "somehash"),
+-- ("mei", "mei.guingor04@gmail.com", "somehash"),
+-- ("mayweather", "mayweather.guingor04@gmail.com", "somehash"),
+-- ("shwartz", "shwartz@gmail.com", "somehash"),
+-- ("samailama", "samailama4@gmail.com", "somehash"),
+-- ("penelope", "penelope@gmail.com", "somehash"),
+-- ("freddy", "freddy@gmail.com", "somehash"),
+-- ("wodo", "wodo@gmail.com", "somehash"),
+-- ("diego", "deigo@gmail.com", "somehash"),
+-- ("fran", "fran@gmail.com", "somehash"),
+-- ("felipe", "felipe@gmail.com", "somehash"),
+-- ("jaunito", "jaunito@gmail.com", "somehash"),
+-- ("elmo", "elmo@gmail.com", "somehash"),
+-- ("elmordisko", "elmordisko@gmail.com", "somehash");
 
 
-INSERT INTO level  (creator_id, name, verified, description)
-SELECT user_id, "Some", false, "Description"
-FROM user;
+-- INSERT INTO level  (creator_id, name, verified, description)
+-- SELECT user_id, "Some", false, "Description"
+-- FROM user;
 
-INSERT INTO session(user_id, time_editor, time_play, time_other, agent)
-select user_id, floor(rand() * 100), floor(rand() * 100), floor(rand() * 100), "mozilla"
-from user;
+-- INSERT INTO user_level_interaction(user_id, level_id, `like`, completed)
+-- select 	user.user_id, level_id, true, true
+-- from user
+-- cross join level
+-- limit 500;
 
-INSERT INTO score(user_id, level_id, session_id)
-select 	(select user_id from user limit 1) , (select level_id from level  limit 1) , (select session_id from session  limit 1);
+-- INSERT INTO session(user_id, time_editor, time_play, time_other, agent)
+-- select user_id, floor(rand() * 100), floor(rand() * 100), floor(rand() * 100), "mozilla"
+-- from user;
 
-INSERT INTO score(user_id, level_id, session_id, time)
-select 	user.user_id, level_id, session_id, round(rand() * 2000)
-from user
-cross join level
-cross join session
-limit 500;
+-- INSERT INTO score(user_id, level_id, session_id)
+-- select 	(select user_id from user limit 1) , (select level_id from level  limit 1) , (select session_id from session  limit 1);
 
-update ignore level_statistic set likes = round(rand() * 200000) where likes = 0;
+-- INSERT INTO score(user_id, level_id, session_id, time)
+-- select 	user.user_id, level_id, session_id, round(rand() * 2000)
+-- from user
+-- cross join level
+-- cross join session
+-- limit 500;
 
-update ignore global_statistic set levels_played = round(rand() * 200000), deaths =round(rand() * 200000), levels_created = round(rand() * 30000), total_downloads =round(rand() * 200000), total_likes = round(rand() * 200000);
+-- update ignore level_statistic set likes = round(rand() * 200000) where likes = 0;
+
+-- update ignore global_statistic set levels_played = round(rand() * 200000), deaths =round(rand() * 200000), levels_created = round(rand() * 30000), total_downloads =round(rand() * 200000), total_likes = round(rand() * 200000);

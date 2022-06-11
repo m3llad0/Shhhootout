@@ -235,9 +235,11 @@ export const RegisterUser = async (req : Request, res: Response) : Promise<void>
  */
 export const GetUserStatistics = async (req : Request, res: Response) : Promise<void> =>  {
 
-  const query = `SELECT * FROM ${USER_STATISTICS} where user_id=?;`
+  const query = `CALL GetUserGlobalStatistic(?);`
 
-  const user_id = req.params.id
+  const user_id = req.params.username
+
+  console.log(user_id)
 
    // Declare poolConnection so we can close it in case something goes wrong.
   let poolConnection : PoolConnection | undefined;
@@ -250,14 +252,22 @@ export const GetUserStatistics = async (req : Request, res: Response) : Promise<
         [ user_id ]
       )
       
-      // Return Ok (200) and return fetched data
-      res.status(200).json(
-          data
-      )
+      console.log(data)
+      if ((data[0] as any[]).length == 0) {
+        res.sendStatus(404)
+        return
+      }
+
+
+    // Operation succeded, return OK (200)
+    res.status(200).json(
+      data[0][0]
+    )
       return
 
     } catch (error) {  
       // An Unkown Error happened in the database.
+      console.log(error)
       res.status(500).json({
         message: "An error has occured."
       })
