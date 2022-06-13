@@ -1,6 +1,7 @@
 //const fs = require('fs');
 const PAUSE_TIME = 1000;
 const DELAY_TIME = 3000;
+const URL = "https://api.shhootout.com";
 
 function generateRandom(max){
     return Math.floor(Math.random() * max);
@@ -187,7 +188,20 @@ async function splash(){
             register.push(result);
             
         }
-        console.log(register);
+        
+        await fetch(URL + "/register", {
+          method: "POST",
+          mode: "cors",
+          cache: "no-cache",
+          headers: {
+              'Content-Type': 'application/json'
+                  },
+          body: JSON.stringify( {
+            "email": register[0],
+            "username": register[1],
+            "password": register[2]
+          } )
+        })
         
     } else {
         
