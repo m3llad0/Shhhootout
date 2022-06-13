@@ -1,0 +1,131 @@
+
+
+body{
+    background-color:black;
+}
+
+
+.loadbar-div{
+    background-color: #d89e05;
+    width:0%;
+    height:20px;
+    margin: 0 10 0 10;
+}
+
+
+
+#cursor-div{
+    background-color:#d89e05;
+    line-height:32px;
+    margin-left:3px;
+    -webkit-animation: blink 0.8s infinite;
+    animation: blink 0.8s infinite;
+    width: 7px;
+    height: 52px;
+    display:inline-block;
+}
+
+#cursor-div-input{
+    background-color: #18cde6;
+    line-height:32px;
+    margin-left: 3px;
+    -webkit-animation: blinkinput 0.8s infinite;
+    animation: blinkinput 0.8s infinite;
+    width: 7px;
+    height: 52px;
+    float:right;
+    display:inline-block;
+
+}
+#console-div{
+    margin: 10px 10px 10px 10px;
+}
+
+.terminal-input{
+    font-family: '6809_chargenregular';
+    font-size: 32pt;
+    letter-spacing: 0.1em;
+    color: #18cde6;
+    text-shadow:
+        0 0 10px #1191b7;
+    margin: 0 0 0 0;
+    display:inline-block;
+    float:right;
+}
+
+
+.terminal-text{
+    font-family: '6809_chargenregular';
+    font-size: 32pt;
+    letter-spacing: 0.1em;
+    color: #d89e05;
+    text-shadow:
+        0 0 10px #ab5f17;
+    
+    display:inline-block;
+}
+
+.inputButton{
+    font-family: '6809_chargenregular';
+    font-size: 32pt;
+    letter-spacing: 0.1em;
+    color: #18cde6;
+
+        background-color:black;
+        border: none;
+        text-decoration: none;
+        
+    
+    display:inline-block;
+    float:right;
+    transition-duration: 0.4s;
+}
+
+.inputButton:hover{
+    color: white;
+    text-shadow:
+        0 0 10px #1191b7;
+}
+
+.input-text{
+    font-family: '6809_chargenregular';
+    font-size: 32pt;
+    letter-spacing: 0.1em;
+    color: #18cde6;
+    text-shadow:
+        0 0 10px #1191b7;
+    float:right;
+    background-color:black;
+    direction: RTL;
+    border: 0;
+    outline: none;
+    caret-color:black;
+}
+
+
+@-webkit-keyframes blink{
+    0% {background-color:black}
+    50% {background-color: #f6941e}
+    100% {background-color:black}
+
+}
+
+@-webkit-keyframes blinkinput{
+    0%{background-color:black}
+    50%{background-color:#18cde6;
+    100%{background-color:black}
+}
+
+
+@keyframes blink{
+     0% {background-color:black}
+     50% {background-color: #f6941e}
+     100% {background-color:black}
+
+ }
+
+@keyframes blinkinput{
+    0%{background-color:black}
+    50%{background-color:#18cde6}
+    100%{background-color:black}
+}
