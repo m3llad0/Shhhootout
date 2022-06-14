@@ -1,0 +1,8 @@
+
+{
+'welcomeScript' : ["<DATE>","-initializing comm channel...","<LOADBAR>","- Agent Portal System"],
+'registerScript' : [" > Please enter your email address...","> What is your name?...","> Please enter a password..."],
+'authScript': ["- authenticating..."],
+'errorMessages': [" !! That is not a correct email address !! ", "!! That name is too short !!", "!! That is a weak password !!"],
+'endScript': ["> Welcome.", "> Your assigned mission is ready.", "> Be seen and heard by no one.", "- loading agent portal...", "<LOADBAR>"]
+}
