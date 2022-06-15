@@ -112,7 +112,7 @@ END //
 
 create procedure GetLevelStatistics (IN level binary(16))
 begin
-    select count(IF(completed = true, 1, 0)) as completions, count(IF(completed = false, 1, 0)) as deaths, COALESCE(min(time),-1) as highscore
+    select count(IF(completed = true, 1, 0)) as completions, count(IF(completed = false, 0, 1)) as deaths, COALESCE(min(time),-1) as highscore
     from `score`
     where level_id=level;
 

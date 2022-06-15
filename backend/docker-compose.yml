@@ -4,6 +4,18 @@ networks:
     driver: bridge
 
 services:
+  frontend:
+    build:
+      context: ../Shhootout-Web/ 
+      dockerfile: ../Shhootout-Web/Dockerfile
+    environment:
+      - FLASK_APP=main
+    expose:
+      - "5000"
+    networks:
+      - back-network
+    depends_on:
+      - "api"
   api:
     build: 
       context: ./api

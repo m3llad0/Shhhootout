@@ -32,4 +32,8 @@ def guide():
     return render_template('guide.html')
 
 
+if __name__ == "__main__":
+    app.run()
+
+
 
