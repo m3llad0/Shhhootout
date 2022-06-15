@@ -114,7 +114,7 @@ public struct InteractResponse
     public bool like;
   }
 
-  private const string BASE_URL = "https://api.shhootout.tk/";
+  private const string BASE_URL = "https://api.shhootout.tk";
   private const string LOGIN_URI = "/login";
   private const string LEVEL_URI = "/level";
   private const string LEVEL_TREND_URI = "/levels/trend";
