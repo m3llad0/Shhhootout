@@ -444,6 +444,7 @@ GameObject:
   - component: {fileID: 846717907}
   - component: {fileID: 846717906}
   - component: {fileID: 846717905}
+  - component: {fileID: 846717908}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -553,7 +554,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 846717905}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 846717908}
+        m_TargetAssemblyTypeName: LoadEditor, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &846717908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846717903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd0a5dd0027074f45b268caccc1d8147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1098936291
 GameObject:
   m_ObjectHideFlags: 0
@@ -934,7 +959,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1591432691}
   - component: {fileID: 1591432693}
-  - component: {fileID: 1591432692}
   m_Layer: 5
   m_Name: Preview (1)
   m_TagString: Untagged
@@ -963,36 +987,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 209}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1591432692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1591432690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d97f54d2c27273a468fcec285e38e47a, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1591432693
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1810,7 +1804,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 75b995f056f843d4096eb01185186dd2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 873dc3a17ca56b64eba575170c781492, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -1,68 +1,26 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 public class MapManager : MonoBehaviour
 {
-  [SerializeField] private Tilemap _floorMap, _wallMap, _objectMap, _doorMap;
 
+  public delegate void OnLoadAction();  
+  public static event OnLoadAction OnLoad;
+
+  [SerializeField] private Tilemap  _objectMap;
+
+  public GameObject grid;
+
+  public GameObject enemyPrefab;
+  public GameObject playerPrefab;
   private void Start()
   {
-    // LoadMap(LevelLoader.Instance.CurrentLevel);
+    LoadMap(LevelLoader.Instance.CurrentLevel);
   }
 
-  public void SaveMap()
-  {
-    LevelData level = new LevelData();
-    level.wallTiles = GetTilesFromMap(_wallMap).ToList();
-    level.floorTiles = GetTilesFromMap(_floorMap).ToList();
-    level.objectTiles = GetTilesFromMap(_objectMap).ToList();
-
-    string jsonData = JsonUtility.ToJson(level);
-    Debug.Log(jsonData);
-    // callback(jsonData);
-
-    var data = new APIConnection.CreateLevelRequest()
-    {
-      description = "Basic Description",
-      name = "Some Cool name",
-      level_data = jsonData
-    };
-
-    StartCoroutine(APIConnection.CreateLevel(data, "", result =>
-    {
-      if (!result.ok)
-      {
-        Debug.LogError(result.error.message);
-        return;
-      }
-
-      Debug.Log("Level Created!");
-
-      // could set up events to fire on level creation
-    }));
-  }
-
-  IEnumerable<SavedTile> GetTilesFromMap(Tilemap map)
-  {
-    foreach (Vector3Int position in map.cellBounds.allPositionsWithin)
-    {
-      if (map.HasTile(position))
-      {
-        LevelTile tile = map.GetTile<LevelTile>(position);
-        yield return new SavedTile()
-        {
-          Position = position,
-          Tile = tile
-        };
-      }
-    }
-
-  }
 
   public void LoadMap(string id)
   {
@@ -72,49 +30,19 @@ public class MapManager : MonoBehaviour
       if (!result.ok)
       {
         Debug.Log(result.error.message);
+        SceneManager.LoadScene("LevelSelection");
         return;
       }
-
-
-      // if (result.data.level_data == null)
-      // {
-      //     Debug.Log("No Data...");
-      //     return;
-      // }
-      //
+ 
       Debug.Log(result.data.level_data);
       LevelData mapData = result.data.level_data;
 
-      ClearMap();
+   
+      //grid.transform.position = mapData.room;
 
-      foreach (var tile in mapData.floorTiles)
-      {
-        switch (tile.Tile.Type)
-        {
-          case TileType.Wood:
-            _floorMap.SetTile(tile.Position, tile.Tile);
-            break;
-          default:
-            throw new ArgumentOutOfRangeException("Invalid tile type");
-        }
-      }
-      foreach (var tile in mapData.wallTiles)
-      {
-        switch (tile.Tile.Type)
-        {
-          case TileType.CornerWallA:
-          case TileType.CornerWallB:
-          case TileType.CornerWallC:
-          case TileType.CornerWallD:
-            _wallMap.SetTile(tile.Position, tile.Tile);
-            break;
-          default:
-            throw new ArgumentOutOfRangeException("Invalid tile type");
-        }
-      }
       foreach (var tile in mapData.objectTiles)
       {
-        switch (tile.Tile.Type)
+        switch (tile.Tile?.Type)
         {
           case TileType.Tank:
           case TileType.SandBag:
@@ -122,21 +50,21 @@ public class MapManager : MonoBehaviour
             _objectMap.SetTile(tile.Position, tile.Tile);
             break;
           default:
-            throw new ArgumentOutOfRangeException("Invalid tile type");
+            Debug.Log("Invalid Tile");
+            break; 
         }
       }
-      foreach (var tile in mapData.doorTiles)
+    
+      foreach (var enemyPos in mapData.enemies)
       {
-        switch (tile.Tile.Type)
-        {
-          case TileType.DoorA:
-          case TileType.DoorB:
-            _doorMap.SetTile(tile.Position, tile.Tile);
-            break;
-          default:
-            throw new ArgumentOutOfRangeException("Invalid tile type");
-        }
+        var instanced = Instantiate(enemyPrefab, enemyPos, Quaternion.identity);
       }
+      
+      var player = Instantiate(playerPrefab, mapData.player, Quaternion.identity);
+      
+      grid.transform.SetPositionAndRotation(mapData.room, Quaternion.identity);
+      
+      OnLoad?.Invoke();    
     }));
 
   }
@@ -155,11 +83,15 @@ public class MapManager : MonoBehaviour
 [Serializable]
 public struct LevelData
 {
+  public List<Vector3> enemies;
+
+  public Vector3 player;
+
+  public Vector3 room;
+  
   // Could expand to many rooms
-  public List<SavedTile> floorTiles;
-  public List<SavedTile> wallTiles;
   public List<SavedTile> objectTiles;
-  public List<SavedTile> doorTiles;
+
 
 }
 

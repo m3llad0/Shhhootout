@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class SessionManager : MonoBehaviour
 {
-    private string token;
+    private string token = "";
+    private string session_id = "";
     // Start is called before the first frame update
     public static SessionManager Instance { get; private set; }
     public GameObject loginOverlay; 
@@ -21,10 +22,11 @@ public class SessionManager : MonoBehaviour
             if (token != "")
             {
                 SetToken(token);
-                /*Aparecer overlay login*/
-                EnableLoginOverlay();
+                return; 
             }
-        #endif
+            #endif
+            /*Aparecer overlay login*/
+            EnableLoginOverlay();
             return;
         }
         
@@ -44,6 +46,15 @@ public class SessionManager : MonoBehaviour
         return this.token;
     }
 
+    public void SetSession(string session_id)
+    {
+        this.session_id = session_id;
+    }
+
+    public string GetSession()
+    {
+        return this.session_id;
+    }
     public void EnableLoginOverlay()
     {
         loginOverlay.SetActive(true);

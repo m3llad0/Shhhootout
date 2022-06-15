@@ -17,9 +17,9 @@ public class LevelPreview : MonoBehaviour
     
     public LevelPreviewData levelData;
 
-    private TextMeshProUGUI levelName;
-    private TextMeshProUGUI authorName; 
-    private TextMeshProUGUI likes;
+    public TextMeshProUGUI levelName;
+    public TextMeshProUGUI authorName; 
+    public TextMeshProUGUI likes;
 
     
     private void OnValidate()
@@ -35,16 +35,6 @@ public class LevelPreview : MonoBehaviour
         SetPreview(levelData); 
     }
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        levelName = transform.Find("LevelName").GetComponent<TextMeshProUGUI>();
-        authorName = transform.Find("AuthorName").GetComponent<TextMeshProUGUI>();
-        likes = transform.Find("Likes").GetComponentInChildren<TextMeshProUGUI>();
-
-    }
-    
-
     public void Load()
     {
         LevelLoader.Instance.LoadLevel(levelData.id);
@@ -53,6 +43,7 @@ public class LevelPreview : MonoBehaviour
     public void SetPreview(LevelPreviewData data)
     {
         levelData = data;
+        Debug.Log(levelData.id);
         levelName.text = levelData.levelName;
         authorName.text = levelData.authorName; 
         likes.text = levelData.likes.ToString();

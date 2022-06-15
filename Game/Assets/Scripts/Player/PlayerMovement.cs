@@ -16,15 +16,9 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
     Vector2 mousePos;
 
-    /// <summary>
-    /// Awake is called when the script instance is being loaded.
-    /// </summary>
-    void Awake()
-    {
-        cam = Camera.main;
-    }
     void Start()
     {
+        cam = Camera.main;
         Timer.instantiate.startTime();
     }
     void Update()

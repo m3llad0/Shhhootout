@@ -19,6 +19,8 @@ public enum TileType
     CornerWallB = 1002,
     CornerWallC = 1003,
     CornerWallD = 1004,
+    WallVert    = 1005,
+    WallHor     = 1006,
     
     // Objects
     Crate = 2001,

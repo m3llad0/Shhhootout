@@ -30,6 +30,13 @@ public class LoginHandler : MonoBehaviour
             }
 
             SessionManager.Instance.SetToken(result.data.token);
+
+            StartCoroutine(APIConnection.CreateSession(result => {
+                    SessionManager.Instance.SetSession(result.data.session_id);
+                    disableLoginOverlay();
+            }) );
+
+           
         }));
     }
 

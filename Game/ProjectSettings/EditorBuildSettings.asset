@@ -17,4 +17,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Shhhtout.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Editor.unity
+    guid: fe64eeb9901825f4eaa47b91b31a0c0f
+  - enabled: 1
+    path: Assets/Scenes/LoadSave.unity
+    guid: c39d21ce20c3f874ea2204d7d59a5b15
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 4417f17a0d37e72439f033552822ec60
   m_configObjects: {}

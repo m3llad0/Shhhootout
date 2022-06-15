@@ -15,6 +15,7 @@ public class Timer : MonoBehaviour
     private TimeSpan timeChrono;
     private bool timerBool;
     private float time;
+    private string timeStr;
     
     void Awake()
     {
@@ -23,10 +24,16 @@ public class Timer : MonoBehaviour
 
     }
 
+    public float Time_
+    {
+        get{ return time;
+
+        }
+    }
     void Start()
     {
         chrono.text = "00:00:00";
-        timerBool = false;
+        // timerBool = false;
     }
 
     public void startTime()
@@ -48,8 +55,9 @@ public class Timer : MonoBehaviour
         while(timerBool)
         {
             time += Time.deltaTime;
+            Debug.Log(time);
             timeChrono = TimeSpan.FromSeconds(time);
-            string timeStr = timeChrono.ToString("mm':'ss':'ff");
+            timeStr = timeChrono.ToString("mm':'ss':'ff");
             chrono.text = timeStr;
 
             yield return null;
