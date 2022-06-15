@@ -35,7 +35,8 @@ public class LevelSelectManager : MonoBehaviour
                     {
                         id = level.level_id,
                         authorName = level.user.username,
-                        levelName = level.name
+                        levelName = level.name,
+                        likes = level.likes
                     };
 
                     GameObject levelP = Instantiate(levelPreview, grid.transform);
@@ -68,7 +69,7 @@ public class LevelSelectManager : MonoBehaviour
                         id = level.level_id,
                         authorName = level.user.username,
                         levelName = level.name,
-                        likes = level.like
+                        likes = -1
                     };
 
                     GameObject levelP = Instantiate(levelPreview, grid.transform);

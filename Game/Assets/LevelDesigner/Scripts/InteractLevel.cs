@@ -10,8 +10,10 @@ public class InteractLevel : MonoBehaviour
         var request =  new APIConnection.RateLevelRequest ();
         request.like = true;
         StartCoroutine(APIConnection.RateLevel(
-             request, LevelLoader.Instance.CurrentLevel, result => {
-                Debug.Log("Level Rated!!");
+             request, LevelLoader.Instance.CurrentLevel, result => { 
+                 Debug.Log(result.ok);
+                 Debug.Log( result.error.message);
+                Debug.Log("Level Rated!!" + result.data.message);
              }
         ));
      

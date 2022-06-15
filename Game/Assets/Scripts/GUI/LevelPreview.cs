@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 
@@ -47,5 +48,10 @@ public class LevelPreview : MonoBehaviour
         levelName.text = levelData.levelName;
         authorName.text = levelData.authorName; 
         likes.text = levelData.likes.ToString();
+
+        if (likes.text == "-1")
+        {
+            Destroy(likes.gameObject);
+        }
     }
 }

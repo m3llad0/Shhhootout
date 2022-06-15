@@ -75,7 +75,7 @@ public struct InteractResponse
     public string create_date;
     public string name;
 
-    public int like;
+    public int likes;
     public User user;
     public LevelData level_data;
   }
@@ -511,7 +511,7 @@ public struct InteractResponse
   /// <returns></returns>
   public static IEnumerator RateLevel(RateLevelRequest request, string level_id, Action<Result<InteractResponse>> callback)
   {
-        if (SessionManager.Instance == null)
+    if (SessionManager.Instance == null)
     {
       var response = new Result<InteractResponse>();
       response.ok = false;
@@ -526,7 +526,7 @@ public struct InteractResponse
     }
     
     string payload = JsonUtility.ToJson(request);
-    using UnityWebRequest www = UnityWebRequest.Put(BASE_URL + level_id + INTERACT_URI, System.Text.Encoding.UTF8.GetBytes(payload));
+    using UnityWebRequest www = UnityWebRequest.Put(BASE_URL + LEVEL_URI + "/"+ level_id + INTERACT_URI, System.Text.Encoding.UTF8.GetBytes(payload));
     www.method = "POST";
     www.SetRequestHeader("Content-Type", "application/json");
     www.SetRequestHeader("authorization", "Bearer " + SessionManager.Instance.GetToken());
