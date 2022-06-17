@@ -3,6 +3,7 @@
     <head>
         <link rel="stylesheet" href="/static/css/standard.css">
         <link rel="stylesheet" href="/static/css/index.css">
+            <script src="/static/js/index.js"></script>
     </head>
     <body>
         
@@ -26,9 +27,54 @@
             
         </div>
         
-        <div class="panel" id="leftCol"><p class="heading">MOST PLAYED LEVELS</p></div>
-        <div class="panel" id="midCol"><p class="heading">&gt; Welcome Agent. </p></div>
-        <div class="panel" id="rightCol"><p class="heading">TOP SCORES </p></div>
+        <div class="panel" id="leftCol"><p class="heading">MOST PLAYED LEVELS</p>
+            <p class="readtext">These are the levels that players have been having the most fun with!.</p>
+            
+            
+            <p class="blueheading">#1</p>
+            <p class="readtext" id="toplevel1">--</p>
+            <p class="blueheading">#2</p>
+            <p class="readtext" id="toplevel2">--</p>
+            <p class="blueheading">#3</p>
+            <p class="readtext" id="toplevel3">--</p>
+            
+            
+        </div>
+        <div class="panel" id="midCol">
+            <p class="heading">&gt; Welcome Agent. </p>
+            <img class="thumbnail" src= "/static/soldier.png">
+            <p class="blueheading">Capt. Doe&gt; You made it to the portal agent!</p>
+            <br>
+            
+            <p class="blueheading">Capt. Doe&gt; Explore around the system, and when you're ready - click on Play to dive in. </p>
+            <br>
+            
+            <p class="readtext"> If you've yet to create an account, just revisit the site and register yourself as a new agent. </p>
+            
+
+            
+        
+        </div>
+        <div class="panel" id="rightCol"><p class="heading">STATS </p>
+            <p class="readtext">Look up your own stats, or other players to compete!</p>
+            <br>
+            <input type="text" id="statlookup">
+            <button id="statsubmit"> Search </button>
+            <br>
+            <p class="blueheading">Levels Played</p>
+            <p class="readtext" id="stat1">--</p>
+            <p class="blueheading">Deaths</p>
+            <p class="readtext" id="stat2">--</p>
+            <p class="blueheading">Total Time</p>
+            <p class="readtext" id="stat3">--</p>
+            <p class="blueheading">Levels Created</p>
+            <p class="readtext" id="stat4">--</p>
+        </div>
+        
+        
+
+        
+
 
         </div>
         

@@ -11,11 +11,9 @@ const PORT = process.env.PORT || 8000;
 const app: Application = express();
 
 // Cors Configuration
-const allowedOrigins = [ "http://localhost:8080", "https://localhost:8080" , "https://planetary-space-627770.postman.co" ] // for now we edit the hosts file to resolve the domain
-
 const corsOptions :  cors.CorsOptions = {
-  origin: allowedOrigins,
-  allowedHeaders: ['Content-Type']
+  origin: "https://web.shhootout.tk", 
+  allowedHeaders: [ 'Accept-Version', 'Authorization', 'Credentials', 'Content-Type' ]
 };
 
 app.use(cors(corsOptions))

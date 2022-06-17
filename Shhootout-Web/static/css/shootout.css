@@ -9,28 +9,28 @@
     grid-template-areas:
 
     " nav nav nav nav nav "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about "
-    " about about about about about ";
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game "
+    " game game game game game ";
     grid-gap: 10px;
     height:100%;
 }
@@ -74,12 +74,6 @@
     font-family:"6809_chargenregular";
 }
 
-
-.readtext {
-    font-family: 'Roboto Mono', monospace;
-    color: #18cde6;
-    margin: 10px 10px 10px 10px;
-}
 .nav-hyperlink:hover{
     color:black;
     background-color: #d89e05;
@@ -113,7 +107,7 @@
 
 
 #fullscreen{
-    grid-area: about;
+    grid-area: game;
     /*width:100%;*/
     height:100%;
     text-align: center;

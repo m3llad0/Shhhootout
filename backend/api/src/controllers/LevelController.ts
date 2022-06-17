@@ -22,7 +22,7 @@ const ERR_MISSING_INTERACTION = "Missing interaction (like, completed)"
  */
 export const GetTrendingLevels = async (req: Request, res :Response) => {
 
-    const query = `SELECT level_id as level_id, BIN_TO_UUID(user_id) as user_id, likes, username, email, name, description FROM ${TRENDING_LEVEL_VIEW} NATURAL JOIN ${USER_TABLE} LIMIT 10`
+    const query = `SELECT level_id as level_id, BIN_TO_UUID(user_id) as user_id, likes, username, email, name, description FROM ${TRENDING_LEVEL_VIEW} INNER JOIN ${USER_TABLE} where creator_id=BIN_TO_UUID(user.user_id) LIMIT 10`
 
     // Declare poolConnection so we can close it in case something goes wrong.
     let poolConnection : PoolConnection | undefined;
@@ -214,7 +214,7 @@ export const GetLevels = async (req:  Request, res: Response) => {
 
   const user_id = (req.params.auth as any).user_id;
 
-  const query = `SELECT BIN_TO_UUID(level_id) as level_id, BIN_TO_UUID(user_id) as user_id, username, email, name, description, create_date, level_data FROM ${LEVEL_TABLE} NATURAL JOIN ${USER_TABLE} where user_id = UUID_TO_BIN(?)`
+  const query = `SELECT BIN_TO_UUID(level_id) as level_id, BIN_TO_UUID(user_id) as user_id, username, email, name, description, create_date, level_data FROM ${LEVEL_TABLE} INNER JOIN ${USER_TABLE} where level.creator_id = UUID_TO_BIN(?) and creator_id = user.user_id`
   const dataQuery = [ user_id ]
   // Declare poolConnection so we can close it in case something goes wrong.
   let poolConnection : PoolConnection | undefined;

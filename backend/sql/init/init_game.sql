@@ -134,12 +134,12 @@ BEGIN
 END//
 
 CREATE PROCEDURE ValidateLevel(
-	IN name VARCHAR(20),
+	IN lname VARCHAR(20)
 )
 DETERMINISTIC
 NO SQL
 BEGIN
-	IF CHAR_LENGTH(name) <  2 THEN
+	IF CHAR_LENGTH(lname) < 2 THEN
 		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Name must be at least 2 characters';
 	END IF;
 END//

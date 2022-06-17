@@ -1,332 +1,362 @@
 
 .grid{
     
-    -webkit-animation: flicker 3s linear 2s both;
-    animation: flicker 3s linear 2s both;
-    
-    display:grid;
-    grid-template-columns: repeat(5,1fr);
-    grid-template-areas:
+  -webkit-animation: flicker 3s linear 2s both;
+  animation: flicker 3s linear 2s both;
+  
+  display:grid;
+  grid-template-columns: repeat(5,1fr);
+  grid-template-areas:
 
-    " nav nav nav nav nav "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r "
-    " l m m m r ";
-    grid-gap: 10px;
-    height:100%;
+  " nav nav nav nav nav "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r "
+  " l m m m r ";
+  grid-gap: 10px;
+  height:100%;
 }
 
 .panel{
-    
-    border: 2px solid #d89e05;
+  
+  border: 2px solid #d89e05;
 }
 
 
 .nav{
-    border: 2px solid #d89e05;
-    
-    
+  border: 2px solid #d89e05;
+  
+  
 }
 
 .nav-hyperlink{
-    text-align: center;
-    display: block;
-    text-decoration: none;
-    color:#d89e05;
-    font-family:"6809_chargenregular";
-    height:auto;
-    font-size:24pt;
+  text-align: center;
+  display: block;
+  text-decoration: none;
+  color:#d89e05;
+  font-family:"6809_chargenregular";
+  height:auto;
+  font-size:24pt;
 }
 
 .heading{
-    text-align: center;
-    display: block;
-    text-decoration: none;
-    color:#d89e05;
-    font-family:"6809_chargenregular";
-    height:auto;
-    font-size:24pt;
-    max-width: 100%;
-    overflow: hidden;
+  text-align: center;
+  display: block;
+  text-decoration: none;
+  color:#d89e05;
+  font-family:"6809_chargenregular";
+  height:auto;
+  font-size:24pt;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.blueheading{
+  text-align: center;
+  display: block;
+  text-decoration: none;
+  color:#18cde6;
+  font-family:"6809_chargenregular";
+  height:auto;
+  font-size:18pt;
+  max-width: 100%;
+  overflow: hidden;
+  margin: 10px;
 }
 
 .text{
-    color:#d89e05;
-    font-family:"6809_chargenregular";
+  color:#d89e05;
+  font-family:"6809_chargenregular";
 }
 
+#statlookup{
+  
+}
+
+#statsubmit{
+  color:#18cde6;
+  background-color:black;
+  border: 2px solid #18cde6;
+  border-radius: 12px;
+  font-family:"6809_chargenregular";
+}
+
+#statsubmit:hover{
+  color:black;
+  background-color:#18cde6;
+
+}
 .nav-hyperlink:hover{
-    color:black;
-    background-color: #d89e05;
+  color:black;
+  background-color: #d89e05;
 }
 
 #banner{
-    grid-area: ban;
+  grid-area: ban;
 }
 
 #home{
-    grid-area: op1;
-    
+  grid-area: op1;
+  
 }
 #play{
-    grid-area: op2;
+  grid-area: op2;
 }
 #guide{
-    grid-area: op3;
+  grid-area: op3;
 }
 #about{
-    grid-area: op4;
+  grid-area: op4;
 }
 #navbar{
-    grid-area: nav;
-    display: grid;
-    grid-template-areas:
-    "op1 op2 op3 op4";
-    grid-gap: 10px;
-    grid-template-rows:min-content;
+  grid-area: nav;
+  display: grid;
+  grid-template-areas:
+  "op1 op2 op3 op4";
+  grid-gap: 10px;
+  grid-template-rows:min-content;
 }
 
 
 #leftCol{
-    grid-area: l;
-    /*width:100%;*/
-    height:100%;
-    text-align: center;
+  grid-area: l;
+  /*width:100%;*/
+  height:100%;
+  text-align: center;
 }
 
 #midCol{
-    grid-area: m;
-    width:100%;
-    height:100%;
-    text-align: center;
-    
+  grid-area: m;
+  width:100%;
+  height:100%;
+  text-align: center;
+  
 }
 #rightCol{
-    grid-area: r;
-    width:100%;
-    height:100%;
-    text-align: center;
-    
+  grid-area: r;
+  width:100%;
+  height:100%;
+  text-align: center;
+  
 }
 
 #game-logo{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    -webkit-animation: flicker 2s linear 1s both;
-    animation: flicker 2s linear 1s both;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-animation: flicker 2s linear 1s both;
+  animation: flicker 2s linear 1s both;
 }
 
 #footer{
-    text-align: center;
+  text-align: center;
 }
 
 @-webkit-keyframes flicker {
-  0% {
-    opacity: 0;
-  }
-  10% {
-    opacity: 0;
-  }
-  10.1% {
-    opacity: 1;
-  }
-  10.2% {
-    opacity: 0;
-  }
-  20% {
-    opacity: 0;
-  }
-  20.1% {
-    opacity: 1;
-  }
-  20.6% {
-    opacity: 0;
-  }
-  30% {
-    opacity: 0;
-  }
-  30.1% {
-    opacity: 1;
-  }
-  30.5% {
-    opacity: 1;
-  }
-  30.6% {
-    opacity: 0;
-  }
-  45% {
-    opacity: 0;
-  }
-  45.1% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 1;
-  }
-  55% {
-    opacity: 1;
-  }
-  55.1% {
-    opacity: 0;
-  }
-  57% {
-    opacity: 0;
-  }
-  57.1% {
-    opacity: 1;
-  }
-  60% {
-    opacity: 1;
-  }
-  60.1% {
-    opacity: 0;
-  }
-  65% {
-    opacity: 0;
-  }
-  65.1% {
-    opacity: 1;
-  }
-  75% {
-    opacity: 1;
-  }
-  75.1% {
-    opacity: 0;
-  }
-  77% {
-    opacity: 0;
-  }
-  77.1% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  85.1% {
-    opacity: 0;
-  }
-  86% {
-    opacity: 0;
-  }
-  86.1% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
+0% {
+  opacity: 0;
+}
+10% {
+  opacity: 0;
+}
+10.1% {
+  opacity: 1;
+}
+10.2% {
+  opacity: 0;
+}
+20% {
+  opacity: 0;
+}
+20.1% {
+  opacity: 1;
+}
+20.6% {
+  opacity: 0;
+}
+30% {
+  opacity: 0;
+}
+30.1% {
+  opacity: 1;
+}
+30.5% {
+  opacity: 1;
+}
+30.6% {
+  opacity: 0;
+}
+45% {
+  opacity: 0;
+}
+45.1% {
+  opacity: 1;
+}
+50% {
+  opacity: 1;
+}
+55% {
+  opacity: 1;
+}
+55.1% {
+  opacity: 0;
+}
+57% {
+  opacity: 0;
+}
+57.1% {
+  opacity: 1;
+}
+60% {
+  opacity: 1;
+}
+60.1% {
+  opacity: 0;
+}
+65% {
+  opacity: 0;
+}
+65.1% {
+  opacity: 1;
+}
+75% {
+  opacity: 1;
+}
+75.1% {
+  opacity: 0;
+}
+77% {
+  opacity: 0;
+}
+77.1% {
+  opacity: 1;
+}
+85% {
+  opacity: 1;
+}
+85.1% {
+  opacity: 0;
+}
+86% {
+  opacity: 0;
+}
+86.1% {
+  opacity: 1;
+}
+100% {
+  opacity: 1;
+}
 }
 @keyframes flicker {
-  0% {
-    opacity: 0;
-  }
-  10% {
-    opacity: 0;
-  }
-  10.1% {
-    opacity: 1;
-  }
-  10.2% {
-    opacity: 0;
-  }
-  20% {
-    opacity: 0;
-  }
-  20.1% {
-    opacity: 1;
-  }
-  20.6% {
-    opacity: 0;
-  }
-  30% {
-    opacity: 0;
-  }
-  30.1% {
-    opacity: 1;
-  }
-  30.5% {
-    opacity: 1;
-  }
-  30.6% {
-    opacity: 0;
-  }
-  45% {
-    opacity: 0;
-  }
-  45.1% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 1;
-  }
-  55% {
-    opacity: 1;
-  }
-  55.1% {
-    opacity: 0;
-  }
-  57% {
-    opacity: 0;
-  }
-  57.1% {
-    opacity: 1;
-  }
-  60% {
-    opacity: 1;
-  }
-  60.1% {
-    opacity: 0;
-  }
-  65% {
-    opacity: 0;
-  }
-  65.1% {
-    opacity: 1;
-  }
-  75% {
-    opacity: 1;
-  }
-  75.1% {
-    opacity: 0;
-  }
-  77% {
-    opacity: 0;
-  }
-  77.1% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  85.1% {
-    opacity: 0;
-  }
-  86% {
-    opacity: 0;
-  }
-  86.1% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
-  }
+0% {
+  opacity: 0;
+}
+10% {
+  opacity: 0;
+}
+10.1% {
+  opacity: 1;
+}
+10.2% {
+  opacity: 0;
+}
+20% {
+  opacity: 0;
+}
+20.1% {
+  opacity: 1;
+}
+20.6% {
+  opacity: 0;
+}
+30% {
+  opacity: 0;
+}
+30.1% {
+  opacity: 1;
+}
+30.5% {
+  opacity: 1;
+}
+30.6% {
+  opacity: 0;
+}
+45% {
+  opacity: 0;
+}
+45.1% {
+  opacity: 1;
+}
+50% {
+  opacity: 1;
+}
+55% {
+  opacity: 1;
+}
+55.1% {
+  opacity: 0;
+}
+57% {
+  opacity: 0;
+}
+57.1% {
+  opacity: 1;
+}
+60% {
+  opacity: 1;
+}
+60.1% {
+  opacity: 0;
+}
+65% {
+  opacity: 0;
+}
+65.1% {
+  opacity: 1;
+}
+75% {
+  opacity: 1;
+}
+75.1% {
+  opacity: 0;
+}
+77% {
+  opacity: 0;
+}
+77.1% {
+  opacity: 1;
+}
+85% {
+  opacity: 1;
+}
+85.1% {
+  opacity: 0;
+}
+86% {
+  opacity: 0;
+}
+86.1% {
+  opacity: 1;
+}
+100% {
+  opacity: 1;
+}
 }

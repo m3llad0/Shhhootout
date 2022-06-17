@@ -7,7 +7,7 @@ export interface JWTData {
 }
 
 export const generateAccessToken = (data :  JWTData) => {
-    return jwt.sign(data, process.env.JWT_SECRET, { expiresIn: '1800s' });
+    return jwt.sign(data, process.env.JWT_SECRET, { expiresIn: '86400s' });
 }
 
 // Middleware

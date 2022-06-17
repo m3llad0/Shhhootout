@@ -47,8 +47,7 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./proxy/proxy.conf:/etc/nginx/nginx.conf:ro
-      - ./proxy/ssl/:/ssl/:ro
+      - ./proxy/proxy.conf:/etc/nginx/nginx.conf:Z,ro
+      - ./proxy/ssl/:/ssl/:Z,ro
     networks:
       - back-network
-
