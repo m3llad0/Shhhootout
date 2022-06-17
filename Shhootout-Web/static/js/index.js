@@ -1,4 +1,6 @@
+//import {Chart} from '../js/chart.js/dist/chart.js'
 
+let myChart;
 
 async function queryLevels(){
     let url = 'https://api.shhootout.tk/levels/trend';
@@ -22,14 +24,17 @@ async function queryLevels(){
         toplevel1.innerText = res[2].name;
     }
     
-    
-    
+
+
+
     
 }
 
 async function getUserStat(){
-
     
+    if (myChart){
+        myChart.destroy();
+    }
     
     let usernameSearch = document.getElementById("statlookup").value;
     let levelsPlayed = document.getElementById("stat1");
@@ -44,7 +49,49 @@ async function getUserStat(){
     levelsPlayed.innerText = res['levels_played'];
     deaths.innerText = res['deaths'];
     timePlayed.innerText = res['total_time_played'];
-    levelsCreated.innerText = res['levels_played'];
+    levelsCreated.innerText = res['levels_created'];
+    
+    
+    let canvas = document.getElementById("createdvsplayed");
+    let ctx = canvas.getContext('2d');
+
+     //Chart.defaults.global.defaultFontColor = '#18cde6';
+     //Chart.defaults.global.defaultFontSize = 16;
+
+    let data = {
+        labels: ["Played ", "Created"],
+          datasets: [
+            {
+                fill: true,
+                backgroundColor: [
+                    '#18cde6',
+                    '#d89e05'],
+                data: [res['levels_played'], res['levels_created'] ],
+            }
+        ]
+    };
+
+    // Notice the rotation from the documentation.
+
+    let options = {
+            title: {
+                      display: true,
+                      text: 'Is this player a creator or a player?',
+                      position: 'top'
+                  },
+            rotation: -0.7 * Math.PI
+    };
+
+
+    // Chart declaration:
+    myChart = new Chart(ctx, {
+        type: 'pie',
+        data: data,
+        options: options
+    });
+    
+    
+    
     
     
 }
