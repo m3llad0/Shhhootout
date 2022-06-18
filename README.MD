@@ -37,6 +37,16 @@ After that you can run the project with,
 
 ![Alt text](images/BuildSettings.JPG "Building settings")
 
+#### Run the project using docker
+
+You'll need docker-compose cli tool, for more information about how to install it: https://docs.docker.com/compose/install/
+
+If you want to change the ssl certificate please refer to create a self signed certificate: https://devopscube.com/create-self-signed-certificates-openssl/
+
+
+```docker-compose up --build```
+
+
 ## Video Demo
 
 https://youtu.be/haypry2uUuM
