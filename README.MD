@@ -35,7 +35,7 @@ After that you can run the project with,
 
 
 
-![Alt text](/https://github.com/m3llad0/Shhhootout/blob/main/images/BuildSettings.JPG "Building settings")
+![Alt text](images/BuildSettings.JPG "Building settings")
 
 ## Video Demo
 
@@ -43,4 +43,4 @@ https://youtu.be/haypry2uUuM
 
 
 
-Electronic Rats &copy 2022
+Electronic Rats &copy; 2022
