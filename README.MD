@@ -19,7 +19,7 @@ This way, they can create games that not only are fun to play, but that will lea
 
 ### On the Web
 
-The project is hosted on www.shhootout.tk
+The project is hosted on https://web.shhootout.tk
 
 ### Locally
 
