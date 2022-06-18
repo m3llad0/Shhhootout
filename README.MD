@@ -6,7 +6,7 @@ Shhootout is a top-down stealth shooter, in which the user can play and create h
 
 ## Link for the video
 
-[title]https://youtu.be/haypry2uUuM
+https://youtu.be/haypry2uUuM
 
 
 
