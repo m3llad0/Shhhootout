@@ -33,6 +33,7 @@ After that you can run the project with,
 
 #### Building the Unity Game
 
+(https://github.com/m3llad0/Shhhootout/blob/main/images/BuildSettings.JPG)
 
 ## Video Demo
 
